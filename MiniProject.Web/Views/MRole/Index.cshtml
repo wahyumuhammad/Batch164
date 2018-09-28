@@ -1,0 +1,266 @@
+﻿@using MiniProject.ViewModel
+@model IEnumerable<MRoleVM>
+@{
+    ViewBag.Title = "Master";
+    ViewBag.Subtitle = "List Role";
+}
+
+<!-- Horizontal Form -->
+<div class="box box-solid box-info">
+    <div class="box box-header box-solid with-border">
+        <h3 class="box-title">List Role</h3>
+    </div>
+
+    <!-- form start -->
+    
+
+    <div class="box-body">
+        <div class="form-horizontal">
+            <div id="AlertResponse">
+
+            </div>
+            <table class="table table-responsive" id="list-role">
+                <thead id="tb-input">
+                    <tr class="no-border">
+                        <td colspan="5">
+                            <div id="AlertResponse">
+
+                            </div>
+                        </td>
+                        <td><button type="button" class="btn btn-info" id="btn-add" style="width:70px">Add</button></td>
+                    </tr>
+                    <tr class="no-border" id="tr-input">
+                        <td colspan="2">@Html.DropDownList("code", (IEnumerable<SelectListItem>)ViewBag.ListCode, "-Select Role Code-", new { @class = "column_filter form-control select2", @id = "col1-filter", @data = "1" })</td>
+                        <td>@Html.DropDownList("name", (IEnumerable<SelectListItem>)ViewBag.ListName, "-Select Role Name-", new { @class = "column_filter form-control select2", @id = "col2-filter", @data = "2" })</td>
+                        <td>
+                            <div class="input-group date">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" class="column_filter form-control datepicker" id="col3-filter" data="3" placeholder="created date" />
+                            </div>
+                        </td>
+                        <td>
+                            <input type="text" class="column_filter form-control" id="col4-filter" data="4" placeholder="created by" />
+                        </td>
+                        <td>
+                            <button class="btn btn-warning" type="button" id="btn-search">Search</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(x => x.id)</th>
+                        <th>@Html.DisplayNameFor(x => x.code)</th>
+                        <th>@Html.DisplayNameFor(x => x.name)</th>
+                        <th>@Html.DisplayNameFor(x => x.created_date)</th>
+                        <th>@Html.DisplayNameFor(x => x.created_by)</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="list-data">
+                    @Html.Partial("_List", Model)
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+            
+
+            <div class="modal fade" id="modal-input">
+                <div class="modal-dialog modal-sm" role="dialog">
+                    <div class="box box-solid box-info">
+                        <div class="box box-header box-solid with-border">
+                            <h3 class="box-title">List</h3>
+                        </div>
+                        <div class="box-body">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @section Scripts{
+                <script>
+                    $(document).ready(function () {
+                        $("#list-role").DataTable({
+                            'sDom': 'tip',
+                            ordering: false
+                        });
+
+                        $('.select2').select2();
+
+                    });
+
+
+                    $("#btn-search").click(function () {
+                        $('#tb-input .form-control').each(function (i) {
+                            filterColumn($(this).attr('data'));
+                        })
+                    })
+
+                    function filterColumn(i) {
+                        $('#list-role').DataTable().column(i).search(
+                            $('#col' + i + '-filter').val()
+                        ).draw();
+                    }
+
+                    $("#tb-input").find("#tr-input").find(".datepicker").datepicker({
+                        format: "dd-mm-yyyy",
+                        autoclose: true
+                    });
+
+                    function loadData() {
+                        $.ajax({
+                            url: "@Url.Action("List")",
+                            type: "get",
+                            dataType: "html",
+                            success: function (result) {
+                                $("#list-data").html(result);
+                            }
+                        });
+                    }
+
+                    function back() {
+                        $("#modal-input").modal('hide');
+                        loadData();
+                    }
+
+                    $("#btn-add").click(function () {
+                        $.ajax({
+                            url: "@Url.Action("Add")",
+                            type: "get",
+                            dataType: "html",
+                            success: function (result) {
+                                $("#modal-input").find(".box-body").html(result);
+                                //$("#modal-input").removeClass("modal-info modal-success modal-warning modal-danger");
+                                //$("#modal-input").addClass("modal-success");
+                                $("#modal-input").find(".box-title").html("Add Role");
+                                $("#modal-input").modal('show');
+                            }
+                        });
+                    });
+
+                    $("#modal-input").on("submit", "#form-m_role", function () {
+                        var vUrl = $(this).attr('action');
+                        var vData = $(this).serialize();
+                        $.ajax({
+                            url: vUrl,
+                            data: vData,
+                            dataType: 'JSON',
+                            method: 'POST',
+                            success: function (result) {
+                                if (result.success == true) {
+                                    $("#modal-input").modal('hide');
+                                    loadData();
+                                    var response = '<div class="alert alert-' + result.alertType + ' alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><i style="color:darkblue"><strong>' + result.alertStrong + '</strong> ' + result.alertMessage + '</i></div>';
+                                    $('#AlertResponse').hide().html(response).fadeIn(1500);
+                                    $('.alert').delay(5000).fadeOut('normal', function () {
+                                        $(this).remove();
+                                    });
+                                } else if (result.success == false) {
+                                    swal({
+                                        title: result.alertType,
+                                        header: result.alertStrong,
+                                        html: result.alertMessage,
+                                        footer: ''
+                                    })
+                                    //$("#modal-input").find(".box-body").html(result);
+                                };
+                            }
+                        });
+                        return false;
+                    });
+
+                    // btn-edit
+                    $("#list-data").on("click", ".btn-edit", function () {
+                        var vId = $(this).val();
+                        $.ajax({
+                            url: "@Url.Action("Edit")",
+                            type: "get",
+                            data: { id: vId },
+                            dataType: "html",
+                            success: function (result) {
+                                $("#modal-input").find(".box-body").html(result);
+                                $("#modal-input").find(".box-title").html("Edit Role");
+                                $("#modal-input").modal('show');
+                            }
+                        });
+                    });
+
+                    // btn-detail
+                    $("#list-data").on("click", ".btn-detail", function () {
+                        var vId = $(this).val();
+                        $.ajax({
+                            url: "@Url.Action("Detail")",
+                            type: "get",
+                            data: { id: vId },
+                            dataType: "html",
+                            success: function (result) {
+                                $("#modal-input").find(".box-body").html(result);
+                                //$("#modal-input").removeClass("modal-info modal-success modal-warning modal-danger");
+                                //$("#modal-input").addClass("modal-info");
+                                $("#modal-input").find(".box-title").html("View Role");
+                                $("#modal-input").modal('show');
+                            }
+                        });
+                    });
+
+                    // btn-delete
+
+                    function actdelete(id, code) {
+                        swal({
+                            title: 'Delete data?',
+                            type: 'false',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3c8dbc',
+                            cancelButtonColor: '#d58512',
+                            confirmButtonText: 'Delete'
+                        }).then((result) => {
+                            if (result.value) {
+                                $.ajax({
+                                    url: '@Url.Action("HideRole")',
+                                    type: 'get',
+                                    data: { id: id },
+                                    dataType: 'json',
+                                    success: function () {
+                                        swal(
+                                          'Deleted!',
+                                          'Your data with code ' + code + ' has been deleted.',
+                                          'success'
+                                        )
+                                        loadData();
+                                        alr = '<div class="alert alert-info alert-dismissible" role="alert" id="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><i style="color:darkblue"><p><strong>Data Deleted!</strong> Data role with code <strong>' + code + '</strong> has been deleted !</p></i></div>'
+                                        $('#AlertResponse').append(alr);
+                                        $('#AlertResponse').find('#alert').fadeOut(7000, function () {
+                                            $('#div-alert').find('#alert').remove();
+                                        });
+                                    }
+                                }); // close ajax
+                            } //close the result {
+                        })//close the result
+                    }
+
+                    function ceknama() {
+                        var dd = $('#modal-input').find('#name').val();
+                        $.ajax({
+                            url: '@Url.Action("CekNama")',
+                            type: 'get',
+                            dataType: 'json',
+                            data: {
+                                nama: dd
+                            },
+                            success: function (result) {
+                                if (result.data == true) {
+                                    swal({
+                                        type: result.alertType,
+                                        title: result.alertStrong,
+                                        html: result.alertMessage,
+                                        footer: ''
+                                    });
+                                }
+                            }
+                        });
+                        return false;
+                    };
+
+                </script>
+            }

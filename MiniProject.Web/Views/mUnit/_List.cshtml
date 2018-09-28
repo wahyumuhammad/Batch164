@@ -1,0 +1,24 @@
+﻿@model IEnumerable<MiniProject.ViewModel.mUnitVM>
+@{ int i = 1;}
+@foreach (var item in Model)
+{
+<tr>
+    <td>@i</td>
+    <td>@Html.DisplayFor(x => item.code)</td>
+    <td>@Html.DisplayFor(x => item.name)</td>
+    <td>@Html.DisplayFor(x => item.createdDate)</td>
+    <td>@Html.DisplayFor(x => item.createdBy)</td>
+    <td>
+        <button type="button" class="btn btn-xs btn-details"  value="@item.id">
+            <i class="glyphicon glyphicon-search"></i>
+        </button>
+        <button type="button" class="btn btn-xs btn-edit" value="@item.id">
+            <i class="glyphicon glyphicon-pencil"></i>
+        </button>
+        <button type="button" class="btn btn-xs btn-delete" value="@item.id" onclick="hapus(@item.id, '@item.code')">
+            <i class="glyphicon glyphicon-trash"></i>
+        </button>
+    </td>
+</tr>
+    i++;
+}

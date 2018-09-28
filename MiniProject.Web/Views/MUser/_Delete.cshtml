@@ -1,0 +1,25 @@
+﻿@model MiniProject.ViewModel.MUserVM
+
+<div class="box box-solid box-default">
+    <div class="box-header">
+        <h3 class="box-title" style="text-align:center">@ViewBag.Title</h3>
+        <button class="btn btn-danger btn-xs box-tools" id="btn-cancel" data-dissmiss="modal" type="button"><i class="fa fa-times-rectangle"></i></button>
+    </div>
+    <div class="box-body with-border">
+        @using (Html.BeginForm("Delete", "MUser", FormMethod.Post, new { @id = "form-input" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(Model => Model.id)
+            <div class="form-horizontal">
+                <div class="modal-footer" style="text-align:center">
+                    <button type="submit" class="btn btn-primary btn-sm">Delete</button>
+                    <button type="button" class="btn btn-warning btn-sm" id="btn-cancel">Cancel</button>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+@Scripts.Render("~/bundles/jqueryval")
+
+

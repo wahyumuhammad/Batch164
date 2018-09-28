@@ -1,0 +1,35 @@
+﻿@model MiniProject.ViewModel.mUnitVM
+
+<div>
+    <h4 style="text-align:center">View Unit - @Html.DisplayFor(model => model.name) (@Html.DisplayFor(model => model.code))</h4>
+    <div class="form-horizontal">
+        @Html.HiddenFor(model => model.id)
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.code, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-6">
+                        @Html.TextBoxFor(model => model.code, new { @class = "form-control", @readonly = true })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-6">
+                        @Html.TextBoxFor(model => model.name, new { @class = "form-control", @readonly = true })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-6">
+                        @Html.TextBoxFor(model => model.description, new { @class = "form-control", @readonly = true })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button id="cancel" type="button" class="btn btn-warning btn-sm">Close</button>
+        </div>
+
+    </div>
+    
+</div>

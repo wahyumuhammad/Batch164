@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0c5d6c32b7044ec4ab1c6d3eeab16b33" Name="Diagram1">
+        <EntityTypeShape EntityType="MiniProjectModel.m_company" Width="1.5" PointX="0.75" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MiniProjectModel.m_employee" Width="1.5" PointX="3" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MiniProjectModel.m_menu" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MiniProjectModel.m_menu_access" Width="1.5" PointX="5.25" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MiniProjectModel.m_product" Width="1.5" PointX="7.5" PointY="17.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MiniProjectModel.m_role" Width="1.5" PointX="3" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MiniProjectModel.m_souvenir" Width="1.5" PointX="13.5" PointY="31.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MiniProjectModel.m_unit" Width="1.5" PointX="11.25" PointY="31.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MiniProjectModel.m_user" Width="1.5" PointX="5.25" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MiniProjectModel.t_design" Width="1.5" PointX="7.5" PointY="21" IsExpanded="true" />
+        <EntityTypeShape EntityType="MiniProjectModel.t_design_item" Width="1.5" PointX="9.75" PointY="17.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MiniProjectModel.t_design_item_file" Width="1.5" PointX="12" PointY="18.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MiniProjectModel.t_event" Width="1.5" PointX="5.25" PointY="28.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MiniProjectModel.t_promotion" Width="1.5" PointX="12.75" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MiniProjectModel.t_promotion_item" Width="1.5" PointX="12" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MiniProjectModel.t_promotion_item_file" Width="1.5" PointX="15" PointY="19.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MiniProjectModel.t_souvenir" Width="1.5" PointX="10.5" PointY="23.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MiniProjectModel.t_souvenir_item" Width="1.5" PointX="15.75" PointY="25" IsExpanded="true" />
+        <AssociationConnector Association="MiniProjectModel.FK_m_employee_m_employee" ManuallyRouted="false" />
+        <AssociationConnector Association="MiniProjectModel.FK_m_user_m_employee" ManuallyRouted="false" />
+        <AssociationConnector Association="MiniProjectModel.FK_t_design_item_m_employee" ManuallyRouted="false" />
+        <AssociationConnector Association="MiniProjectModel.FK_t_design_m_employee" ManuallyRouted="false" />
+        <AssociationConnector Association="MiniProjectModel.FK_t_design_m_employee1" ManuallyRouted="false" />
+        <AssociationConnector Association="MiniProjectModel.FK_t_design_m_employee2" ManuallyRouted="false" />
+        <AssociationConnector Association="MiniProjectModel.FK_t_event_m_employee" ManuallyRouted="false" />
+        <AssociationConnector Association="MiniProjectModel.FK_t_event_m_employee1" ManuallyRouted="false" />
+        <AssociationConnector Association="MiniProjectModel.FK_t_event_m_employee2" ManuallyRouted="false" />
+        <AssociationConnector Association="MiniProjectModel.FK_t_promotion_item_m_employee" ManuallyRouted="false" />
+        <AssociationConnector Association="MiniProjectModel.FK_t_promotion_m_employee" ManuallyRouted="false" />
+        <AssociationConnector Association="MiniProjectModel.FK_t_promotion_m_employee1" ManuallyRouted="false" />
+        <AssociationConnector Association="MiniProjectModel.FK_t_promotion_m_employee2" ManuallyRouted="false" />
+        <AssociationConnector Association="MiniProjectModel.FK_t_souvenir_m_employee" ManuallyRouted="false" />
+        <AssociationConnector Association="MiniProjectModel.FK_t_souvenir_m_employee1" ManuallyRouted="false" />
+        <AssociationConnector Association="MiniProjectModel.FK_t_souvenir_m_employee2" ManuallyRouted="false" />
+        <AssociationConnector Association="MiniProjectModel.FK_t_souvenir_m_employee3" ManuallyRouted="false" />
+        <AssociationConnector Association="MiniProjectModel.FK_t_souvenir_m_employee4" ManuallyRouted="false" />
+        <AssociationConnector Association="MiniProjectModel.FK_m_menu_access_m_menu" ManuallyRouted="false" />
+        <AssociationConnector Association="MiniProjectModel.FK_m_menu_access_m_role" ManuallyRouted="false" />
+        <AssociationConnector Association="MiniProjectModel.FK_t_design_item_m_product" ManuallyRouted="false" />
+        <AssociationConnector Association="MiniProjectModel.FK_t_promotion_item_m_product" ManuallyRouted="false" />
+        <AssociationConnector Association="MiniProjectModel.FK_m_user_m_role" ManuallyRouted="false" />
+        <AssociationConnector Association="MiniProjectModel.FK_m_souvenir_m_unit" ManuallyRouted="false" />
+        <AssociationConnector Association="MiniProjectModel.FK_t_souvenir_item_m_souvenir" ManuallyRouted="false" />
+        <AssociationConnector Association="MiniProjectModel.FK_t_design_item_t_design" ManuallyRouted="false" />
+        <AssociationConnector Association="MiniProjectModel.FK_t_design_t_event" ManuallyRouted="false" />
+        <AssociationConnector Association="MiniProjectModel.FK_t_promotion_t_design" ManuallyRouted="false" />
+        <AssociationConnector Association="MiniProjectModel.FK_t_design_item_file_t_design_item" ManuallyRouted="false" />
+        <AssociationConnector Association="MiniProjectModel.FK_t_promotion_item_t_design_item" ManuallyRouted="false" />
+        <AssociationConnector Association="MiniProjectModel.FK_t_promotion_t_event" ManuallyRouted="false" />
+        <AssociationConnector Association="MiniProjectModel.FK_t_souvenir_t_event" ManuallyRouted="false" />
+        <AssociationConnector Association="MiniProjectModel.FK_t_promotion_item_file_t_promotion" ManuallyRouted="false" />
+        <AssociationConnector Association="MiniProjectModel.FK_t_promotion_item_t_promotion" ManuallyRouted="false" />
+        <AssociationConnector Association="MiniProjectModel.FK_t_souvenir_item_t_souvenir" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

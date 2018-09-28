@@ -1,0 +1,2271 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MiniProjectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="m_company">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="code" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="address" Type="varchar(max)" />
+          <Property Name="phone" Type="varchar" MaxLength="50" />
+          <Property Name="email" Type="varchar" MaxLength="50" />
+          <Property Name="is_active" Type="bit" Nullable="false" />
+          <Property Name="created_by" Type="int" Nullable="false" />
+          <Property Name="created_date" Type="datetime" Nullable="false" />
+          <Property Name="updated_by" Type="int" />
+          <Property Name="updated_date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="m_employee">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="employee_number" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="first_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="last_name" Type="varchar" MaxLength="50" />
+          <Property Name="m_company_id" Type="int" />
+          <Property Name="email" Type="varchar(max)" />
+          <Property Name="is_active" Type="bit" Nullable="false" />
+          <Property Name="created_by" Type="int" Nullable="false" />
+          <Property Name="created_date" Type="datetime" Nullable="false" />
+          <Property Name="updated_by" Type="int" />
+          <Property Name="updated_date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="m_menu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="code" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="controller" Type="varchar(max)" Nullable="false" />
+          <Property Name="parent_id" Type="int" />
+          <Property Name="is_active" Type="bit" Nullable="false" />
+          <Property Name="created_by" Type="int" Nullable="false" />
+          <Property Name="created_date" Type="datetime" Nullable="false" />
+          <Property Name="updated_by" Type="int" />
+          <Property Name="updated_date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="m_menu_access">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="m_role_id" Type="int" Nullable="false" />
+          <Property Name="m_menu_id" Type="int" Nullable="false" />
+          <Property Name="is_active" Type="bit" Nullable="false" />
+          <Property Name="created_by" Type="int" Nullable="false" />
+          <Property Name="created_date" Type="datetime" Nullable="false" />
+          <Property Name="updated_by" Type="int" />
+          <Property Name="updated_date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="m_product">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="code" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="description" Type="varchar(max)" />
+          <Property Name="is_active" Type="bit" Nullable="false" />
+          <Property Name="created_by" Type="int" Nullable="false" />
+          <Property Name="created_date" Type="datetime" Nullable="false" />
+          <Property Name="updated_by" Type="int" />
+          <Property Name="updated_date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="m_role">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="code" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="description" Type="varchar(max)" Nullable="false" />
+          <Property Name="is_active" Type="bit" Nullable="false" />
+          <Property Name="created_by" Type="int" Nullable="false" />
+          <Property Name="created_date" Type="datetime" Nullable="false" />
+          <Property Name="updated_by" Type="int" />
+          <Property Name="updated_date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="m_souvenir">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="code" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="description" Type="varchar(max)" />
+          <Property Name="m_unit_id" Type="int" Nullable="false" />
+          <Property Name="is_active" Type="bit" Nullable="false" />
+          <Property Name="created_by" Type="int" Nullable="false" />
+          <Property Name="created_date" Type="datetime" Nullable="false" />
+          <Property Name="updated_by" Type="int" />
+          <Property Name="updated_date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="m_unit">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="code" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="description" Type="varchar(max)" />
+          <Property Name="is_active" Type="bit" Nullable="false" />
+          <Property Name="created_by" Type="int" Nullable="false" />
+          <Property Name="created_date" Type="datetime" Nullable="false" />
+          <Property Name="updated_by" Type="int" />
+          <Property Name="updated_date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="m_user">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="m_role_id" Type="int" Nullable="false" />
+          <Property Name="m_employee_id" Type="int" Nullable="false" />
+          <Property Name="is_active" Type="bit" Nullable="false" />
+          <Property Name="created_by" Type="int" Nullable="false" />
+          <Property Name="created_date" Type="datetime" Nullable="false" />
+          <Property Name="updated_by" Type="int" />
+          <Property Name="updated_date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="t_design">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="code" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="t_event_id" Type="int" Nullable="false" />
+          <Property Name="title_header" Type="varchar(max)" Nullable="false" />
+          <Property Name="request_by" Type="int" Nullable="false" />
+          <Property Name="request_date" Type="datetime" Nullable="false" />
+          <Property Name="approved_by" Type="int" />
+          <Property Name="approved_date" Type="datetime" />
+          <Property Name="assign_to" Type="int" />
+          <Property Name="closed_date" Type="datetime" />
+          <Property Name="note" Type="varchar(max)" />
+          <Property Name="status" Type="int" />
+          <Property Name="reject_reason" Type="varchar(max)" />
+          <Property Name="is_active" Type="bit" />
+          <Property Name="created_by" Type="int" Nullable="false" />
+          <Property Name="created_date" Type="datetime" Nullable="false" />
+          <Property Name="updated_by" Type="int" />
+          <Property Name="updated_date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="t_design_item">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="t_design_id" Type="int" Nullable="false" />
+          <Property Name="m_product_id" Type="int" Nullable="false" />
+          <Property Name="title_item" Type="varchar(max)" Nullable="false" />
+          <Property Name="request_pic" Type="int" Nullable="false" />
+          <Property Name="start_date" Type="datetime" />
+          <Property Name="end_date" Type="datetime" />
+          <Property Name="request_due_date" Type="datetime" />
+          <Property Name="note" Type="varchar(max)" />
+          <Property Name="is_active" Type="bit" />
+          <Property Name="created_by" Type="int" Nullable="false" />
+          <Property Name="created_date" Type="datetime" Nullable="false" />
+          <Property Name="updated_by" Type="int" />
+          <Property Name="updated_date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="t_design_item_file">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="t_design_item_id" Type="int" Nullable="false" />
+          <Property Name="filename" Type="varchar" MaxLength="50" />
+          <Property Name="size" Type="varchar" MaxLength="50" />
+          <Property Name="extension" Type="varchar" MaxLength="50" />
+          <Property Name="is_active" Type="bit" />
+          <Property Name="created_by" Type="int" Nullable="false" />
+          <Property Name="created_date" Type="datetime" Nullable="false" />
+          <Property Name="updated_by" Type="int" />
+          <Property Name="updated_date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="t_event">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="code" Type="varchar" MaxLength="50" />
+          <Property Name="event_name" Type="varchar(max)" />
+          <Property Name="start_date" Type="datetime" />
+          <Property Name="end_date" Type="datetime" />
+          <Property Name="place" Type="varchar(max)" />
+          <Property Name="budget" Type="bigint" />
+          <Property Name="request_by" Type="int" />
+          <Property Name="request_date" Type="datetime" />
+          <Property Name="approved_by" Type="int" />
+          <Property Name="approved_date" Type="datetime" />
+          <Property Name="assign_to" Type="int" />
+          <Property Name="closed_date" Type="datetime" />
+          <Property Name="note" Type="varchar(max)" />
+          <Property Name="status" Type="int" />
+          <Property Name="reject_reason" Type="varchar(max)" />
+          <Property Name="is_active" Type="bit" />
+          <Property Name="created_by" Type="int" />
+          <Property Name="created_date" Type="datetime" />
+          <Property Name="updated_by" Type="int" />
+          <Property Name="updated_date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="t_promotion">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="code" Type="varchar" MaxLength="50" />
+          <Property Name="flag_design" Type="char" MaxLength="1" />
+          <Property Name="title" Type="varchar(max)" />
+          <Property Name="t_event_id" Type="int" />
+          <Property Name="t_design_id" Type="int" />
+          <Property Name="request_by" Type="int" />
+          <Property Name="request_date" Type="datetime" />
+          <Property Name="approved_by" Type="int" />
+          <Property Name="approved_date" Type="datetime" />
+          <Property Name="assign_to" Type="int" />
+          <Property Name="close_date" Type="datetime" />
+          <Property Name="note" Type="varchar(max)" />
+          <Property Name="status" Type="int" />
+          <Property Name="reject_reason" Type="varchar(max)" />
+          <Property Name="is_active" Type="bit" />
+          <Property Name="created_by" Type="int" Nullable="false" />
+          <Property Name="created_date" Type="datetime" Nullable="false" />
+          <Property Name="updated_by" Type="int" />
+          <Property Name="updated_date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="t_promotion_item">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="t_promotion_id" Type="int" Nullable="false" />
+          <Property Name="t_design_item_id" Type="int" />
+          <Property Name="m_product_id" Type="int" Nullable="false" />
+          <Property Name="title" Type="varchar(max)" Nullable="false" />
+          <Property Name="request_pic" Type="int" Nullable="false" />
+          <Property Name="start_date" Type="datetime" />
+          <Property Name="end_date" Type="datetime" />
+          <Property Name="request_due_date" Type="datetime" />
+          <Property Name="qty" Type="bigint" />
+          <Property Name="todo" Type="int" Nullable="false" />
+          <Property Name="note" Type="varchar(max)" />
+          <Property Name="is_active" Type="bit" />
+          <Property Name="created_by" Type="int" Nullable="false" />
+          <Property Name="created_date" Type="datetime" Nullable="false" />
+          <Property Name="updated_by" Type="int" />
+          <Property Name="updated_date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="t_promotion_item_file">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="t_promotion_id" Type="int" Nullable="false" />
+          <Property Name="filename" Type="varchar(max)" />
+          <Property Name="size" Type="varchar" MaxLength="50" />
+          <Property Name="extension" Type="varchar" MaxLength="50" />
+          <Property Name="start_date" Type="datetime" />
+          <Property Name="end_date" Type="datetime" />
+          <Property Name="request_due_date" Type="datetime" />
+          <Property Name="qty" Type="bigint" />
+          <Property Name="todo" Type="int" Nullable="false" />
+          <Property Name="note" Type="varchar(max)" />
+          <Property Name="is_active" Type="bit" />
+          <Property Name="created_by" Type="int" Nullable="false" />
+          <Property Name="created_date" Type="datetime" Nullable="false" />
+          <Property Name="updated_by" Type="int" />
+          <Property Name="updated_date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="t_souvenir">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="code" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="type" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="t_event_id" Type="int" />
+          <Property Name="request_by" Type="int" Nullable="false" />
+          <Property Name="request_date" Type="datetime" />
+          <Property Name="request_due_date" Type="datetime" />
+          <Property Name="approved_by" Type="int" />
+          <Property Name="approved_date" Type="datetime" />
+          <Property Name="received_by" Type="int" />
+          <Property Name="received_date" Type="datetime" />
+          <Property Name="settlement_by" Type="int" />
+          <Property Name="settlement_date" Type="datetime" />
+          <Property Name="settlement_approved_by" Type="int" />
+          <Property Name="settlement_approved_date" Type="datetime" />
+          <Property Name="status" Type="int" />
+          <Property Name="note" Type="varchar(max)" />
+          <Property Name="reject_reason" Type="varchar(max)" />
+          <Property Name="is_active" Type="bit" />
+          <Property Name="created_by" Type="int" />
+          <Property Name="created_date" Type="datetime" />
+          <Property Name="updated_by" Type="int" />
+          <Property Name="updated_date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="t_souvenir_item">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="t_souvenir_id" Type="int" Nullable="false" />
+          <Property Name="m_souvenir_id" Type="int" Nullable="false" />
+          <Property Name="qty" Type="bigint" />
+          <Property Name="qty_settlement" Type="bigint" />
+          <Property Name="note" Type="varchar(max)" Nullable="false" />
+          <Property Name="is_active" Type="bit" Nullable="false" />
+          <Property Name="created_by" Type="int" />
+          <Property Name="created_date" Type="datetime" />
+          <Property Name="updated_by" Type="int" />
+          <Property Name="updated_date" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_m_employee_m_employee">
+          <End Role="m_company" Type="Self.m_company" Multiplicity="0..1" />
+          <End Role="m_employee" Type="Self.m_employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_company">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="m_employee">
+              <PropertyRef Name="m_company_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_m_menu_access_m_menu">
+          <End Role="m_menu" Type="Self.m_menu" Multiplicity="1" />
+          <End Role="m_menu_access" Type="Self.m_menu_access" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_menu">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="m_menu_access">
+              <PropertyRef Name="m_menu_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_m_menu_access_m_role">
+          <End Role="m_role" Type="Self.m_role" Multiplicity="1" />
+          <End Role="m_menu_access" Type="Self.m_menu_access" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_role">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="m_menu_access">
+              <PropertyRef Name="m_role_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_m_souvenir_m_unit">
+          <End Role="m_unit" Type="Self.m_unit" Multiplicity="1" />
+          <End Role="m_souvenir" Type="Self.m_souvenir" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_unit">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="m_souvenir">
+              <PropertyRef Name="m_unit_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_m_user_m_employee">
+          <End Role="m_employee" Type="Self.m_employee" Multiplicity="1" />
+          <End Role="m_user" Type="Self.m_user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_employee">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="m_user">
+              <PropertyRef Name="m_employee_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_m_user_m_role">
+          <End Role="m_role" Type="Self.m_role" Multiplicity="1" />
+          <End Role="m_user" Type="Self.m_user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_role">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="m_user">
+              <PropertyRef Name="m_role_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_design_item_file_t_design_item">
+          <End Role="t_design_item" Type="Self.t_design_item" Multiplicity="1" />
+          <End Role="t_design_item_file" Type="Self.t_design_item_file" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_design_item">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_design_item_file">
+              <PropertyRef Name="t_design_item_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_design_item_m_employee">
+          <End Role="m_employee" Type="Self.m_employee" Multiplicity="1" />
+          <End Role="t_design_item" Type="Self.t_design_item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_employee">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_design_item">
+              <PropertyRef Name="request_pic" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_design_item_m_product">
+          <End Role="m_product" Type="Self.m_product" Multiplicity="1" />
+          <End Role="t_design_item" Type="Self.t_design_item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_product">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_design_item">
+              <PropertyRef Name="m_product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_design_item_t_design">
+          <End Role="t_design" Type="Self.t_design" Multiplicity="1" />
+          <End Role="t_design_item" Type="Self.t_design_item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_design">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_design_item">
+              <PropertyRef Name="t_design_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_design_m_employee">
+          <End Role="m_employee" Type="Self.m_employee" Multiplicity="1" />
+          <End Role="t_design" Type="Self.t_design" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_employee">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_design">
+              <PropertyRef Name="request_by" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_design_m_employee1">
+          <End Role="m_employee" Type="Self.m_employee" Multiplicity="0..1" />
+          <End Role="t_design" Type="Self.t_design" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_employee">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_design">
+              <PropertyRef Name="approved_by" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_design_m_employee2">
+          <End Role="m_employee" Type="Self.m_employee" Multiplicity="0..1" />
+          <End Role="t_design" Type="Self.t_design" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_employee">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_design">
+              <PropertyRef Name="assign_to" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_design_t_event">
+          <End Role="t_event" Type="Self.t_event" Multiplicity="1" />
+          <End Role="t_design" Type="Self.t_design" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_event">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_design">
+              <PropertyRef Name="t_event_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_event_m_employee">
+          <End Role="m_employee" Type="Self.m_employee" Multiplicity="0..1" />
+          <End Role="t_event" Type="Self.t_event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_employee">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_event">
+              <PropertyRef Name="request_by" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_event_m_employee1">
+          <End Role="m_employee" Type="Self.m_employee" Multiplicity="0..1" />
+          <End Role="t_event" Type="Self.t_event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_employee">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_event">
+              <PropertyRef Name="approved_by" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_event_m_employee2">
+          <End Role="m_employee" Type="Self.m_employee" Multiplicity="0..1" />
+          <End Role="t_event" Type="Self.t_event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_employee">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_event">
+              <PropertyRef Name="assign_to" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_promotion_item_file_t_promotion">
+          <End Role="t_promotion" Type="Self.t_promotion" Multiplicity="1" />
+          <End Role="t_promotion_item_file" Type="Self.t_promotion_item_file" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_promotion">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_promotion_item_file">
+              <PropertyRef Name="t_promotion_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_promotion_item_m_employee">
+          <End Role="m_employee" Type="Self.m_employee" Multiplicity="1" />
+          <End Role="t_promotion_item" Type="Self.t_promotion_item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_employee">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_promotion_item">
+              <PropertyRef Name="request_pic" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_promotion_item_m_product">
+          <End Role="m_product" Type="Self.m_product" Multiplicity="1" />
+          <End Role="t_promotion_item" Type="Self.t_promotion_item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_product">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_promotion_item">
+              <PropertyRef Name="m_product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_promotion_item_t_design_item">
+          <End Role="t_design_item" Type="Self.t_design_item" Multiplicity="0..1" />
+          <End Role="t_promotion_item" Type="Self.t_promotion_item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_design_item">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_promotion_item">
+              <PropertyRef Name="t_design_item_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_promotion_item_t_promotion">
+          <End Role="t_promotion" Type="Self.t_promotion" Multiplicity="1" />
+          <End Role="t_promotion_item" Type="Self.t_promotion_item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_promotion">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_promotion_item">
+              <PropertyRef Name="t_promotion_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_promotion_m_employee">
+          <End Role="m_employee" Type="Self.m_employee" Multiplicity="0..1" />
+          <End Role="t_promotion" Type="Self.t_promotion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_employee">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_promotion">
+              <PropertyRef Name="request_by" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_promotion_m_employee1">
+          <End Role="m_employee" Type="Self.m_employee" Multiplicity="0..1" />
+          <End Role="t_promotion" Type="Self.t_promotion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_employee">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_promotion">
+              <PropertyRef Name="approved_by" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_promotion_m_employee2">
+          <End Role="m_employee" Type="Self.m_employee" Multiplicity="0..1" />
+          <End Role="t_promotion" Type="Self.t_promotion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_employee">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_promotion">
+              <PropertyRef Name="assign_to" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_promotion_t_design">
+          <End Role="t_design" Type="Self.t_design" Multiplicity="0..1" />
+          <End Role="t_promotion" Type="Self.t_promotion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_design">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_promotion">
+              <PropertyRef Name="t_design_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_promotion_t_event">
+          <End Role="t_event" Type="Self.t_event" Multiplicity="0..1" />
+          <End Role="t_promotion" Type="Self.t_promotion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_event">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_promotion">
+              <PropertyRef Name="t_event_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_souvenir_item_m_souvenir">
+          <End Role="m_souvenir" Type="Self.m_souvenir" Multiplicity="1" />
+          <End Role="t_souvenir_item" Type="Self.t_souvenir_item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_souvenir">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_souvenir_item">
+              <PropertyRef Name="m_souvenir_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_souvenir_item_t_souvenir">
+          <End Role="t_souvenir" Type="Self.t_souvenir" Multiplicity="1" />
+          <End Role="t_souvenir_item" Type="Self.t_souvenir_item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_souvenir">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_souvenir_item">
+              <PropertyRef Name="t_souvenir_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_souvenir_m_employee">
+          <End Role="m_employee" Type="Self.m_employee" Multiplicity="1" />
+          <End Role="t_souvenir" Type="Self.t_souvenir" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_employee">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_souvenir">
+              <PropertyRef Name="request_by" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_souvenir_m_employee1">
+          <End Role="m_employee" Type="Self.m_employee" Multiplicity="0..1" />
+          <End Role="t_souvenir" Type="Self.t_souvenir" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_employee">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_souvenir">
+              <PropertyRef Name="approved_by" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_souvenir_m_employee2">
+          <End Role="m_employee" Type="Self.m_employee" Multiplicity="0..1" />
+          <End Role="t_souvenir" Type="Self.t_souvenir" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_employee">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_souvenir">
+              <PropertyRef Name="received_by" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_souvenir_m_employee3">
+          <End Role="m_employee" Type="Self.m_employee" Multiplicity="0..1" />
+          <End Role="t_souvenir" Type="Self.t_souvenir" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_employee">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_souvenir">
+              <PropertyRef Name="settlement_by" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_souvenir_m_employee4">
+          <End Role="m_employee" Type="Self.m_employee" Multiplicity="0..1" />
+          <End Role="t_souvenir" Type="Self.t_souvenir" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_employee">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_souvenir">
+              <PropertyRef Name="settlement_approved_by" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_souvenir_t_event">
+          <End Role="t_event" Type="Self.t_event" Multiplicity="0..1" />
+          <End Role="t_souvenir" Type="Self.t_souvenir" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_event">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_souvenir">
+              <PropertyRef Name="t_event_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MiniProjectModelStoreContainer">
+          <EntitySet Name="m_company" EntityType="Self.m_company" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="m_employee" EntityType="Self.m_employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="m_menu" EntityType="Self.m_menu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="m_menu_access" EntityType="Self.m_menu_access" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="m_product" EntityType="Self.m_product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="m_role" EntityType="Self.m_role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="m_souvenir" EntityType="Self.m_souvenir" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="m_unit" EntityType="Self.m_unit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="m_user" EntityType="Self.m_user" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_design" EntityType="Self.t_design" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_design_item" EntityType="Self.t_design_item" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_design_item_file" EntityType="Self.t_design_item_file" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_event" EntityType="Self.t_event" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_promotion" EntityType="Self.t_promotion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_promotion_item" EntityType="Self.t_promotion_item" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_promotion_item_file" EntityType="Self.t_promotion_item_file" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_souvenir" EntityType="Self.t_souvenir" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_souvenir_item" EntityType="Self.t_souvenir_item" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_m_employee_m_employee" Association="Self.FK_m_employee_m_employee">
+            <End Role="m_company" EntitySet="m_company" />
+            <End Role="m_employee" EntitySet="m_employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_m_menu_access_m_menu" Association="Self.FK_m_menu_access_m_menu">
+            <End Role="m_menu" EntitySet="m_menu" />
+            <End Role="m_menu_access" EntitySet="m_menu_access" />
+          </AssociationSet>
+          <AssociationSet Name="FK_m_menu_access_m_role" Association="Self.FK_m_menu_access_m_role">
+            <End Role="m_role" EntitySet="m_role" />
+            <End Role="m_menu_access" EntitySet="m_menu_access" />
+          </AssociationSet>
+          <AssociationSet Name="FK_m_souvenir_m_unit" Association="Self.FK_m_souvenir_m_unit">
+            <End Role="m_unit" EntitySet="m_unit" />
+            <End Role="m_souvenir" EntitySet="m_souvenir" />
+          </AssociationSet>
+          <AssociationSet Name="FK_m_user_m_employee" Association="Self.FK_m_user_m_employee">
+            <End Role="m_employee" EntitySet="m_employee" />
+            <End Role="m_user" EntitySet="m_user" />
+          </AssociationSet>
+          <AssociationSet Name="FK_m_user_m_role" Association="Self.FK_m_user_m_role">
+            <End Role="m_role" EntitySet="m_role" />
+            <End Role="m_user" EntitySet="m_user" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_design_item_file_t_design_item" Association="Self.FK_t_design_item_file_t_design_item">
+            <End Role="t_design_item" EntitySet="t_design_item" />
+            <End Role="t_design_item_file" EntitySet="t_design_item_file" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_design_item_m_employee" Association="Self.FK_t_design_item_m_employee">
+            <End Role="m_employee" EntitySet="m_employee" />
+            <End Role="t_design_item" EntitySet="t_design_item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_design_item_m_product" Association="Self.FK_t_design_item_m_product">
+            <End Role="m_product" EntitySet="m_product" />
+            <End Role="t_design_item" EntitySet="t_design_item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_design_item_t_design" Association="Self.FK_t_design_item_t_design">
+            <End Role="t_design" EntitySet="t_design" />
+            <End Role="t_design_item" EntitySet="t_design_item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_design_m_employee" Association="Self.FK_t_design_m_employee">
+            <End Role="m_employee" EntitySet="m_employee" />
+            <End Role="t_design" EntitySet="t_design" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_design_m_employee1" Association="Self.FK_t_design_m_employee1">
+            <End Role="m_employee" EntitySet="m_employee" />
+            <End Role="t_design" EntitySet="t_design" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_design_m_employee2" Association="Self.FK_t_design_m_employee2">
+            <End Role="m_employee" EntitySet="m_employee" />
+            <End Role="t_design" EntitySet="t_design" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_design_t_event" Association="Self.FK_t_design_t_event">
+            <End Role="t_event" EntitySet="t_event" />
+            <End Role="t_design" EntitySet="t_design" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_event_m_employee" Association="Self.FK_t_event_m_employee">
+            <End Role="m_employee" EntitySet="m_employee" />
+            <End Role="t_event" EntitySet="t_event" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_event_m_employee1" Association="Self.FK_t_event_m_employee1">
+            <End Role="m_employee" EntitySet="m_employee" />
+            <End Role="t_event" EntitySet="t_event" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_event_m_employee2" Association="Self.FK_t_event_m_employee2">
+            <End Role="m_employee" EntitySet="m_employee" />
+            <End Role="t_event" EntitySet="t_event" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_promotion_item_file_t_promotion" Association="Self.FK_t_promotion_item_file_t_promotion">
+            <End Role="t_promotion" EntitySet="t_promotion" />
+            <End Role="t_promotion_item_file" EntitySet="t_promotion_item_file" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_promotion_item_m_employee" Association="Self.FK_t_promotion_item_m_employee">
+            <End Role="m_employee" EntitySet="m_employee" />
+            <End Role="t_promotion_item" EntitySet="t_promotion_item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_promotion_item_m_product" Association="Self.FK_t_promotion_item_m_product">
+            <End Role="m_product" EntitySet="m_product" />
+            <End Role="t_promotion_item" EntitySet="t_promotion_item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_promotion_item_t_design_item" Association="Self.FK_t_promotion_item_t_design_item">
+            <End Role="t_design_item" EntitySet="t_design_item" />
+            <End Role="t_promotion_item" EntitySet="t_promotion_item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_promotion_item_t_promotion" Association="Self.FK_t_promotion_item_t_promotion">
+            <End Role="t_promotion" EntitySet="t_promotion" />
+            <End Role="t_promotion_item" EntitySet="t_promotion_item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_promotion_m_employee" Association="Self.FK_t_promotion_m_employee">
+            <End Role="m_employee" EntitySet="m_employee" />
+            <End Role="t_promotion" EntitySet="t_promotion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_promotion_m_employee1" Association="Self.FK_t_promotion_m_employee1">
+            <End Role="m_employee" EntitySet="m_employee" />
+            <End Role="t_promotion" EntitySet="t_promotion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_promotion_m_employee2" Association="Self.FK_t_promotion_m_employee2">
+            <End Role="m_employee" EntitySet="m_employee" />
+            <End Role="t_promotion" EntitySet="t_promotion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_promotion_t_design" Association="Self.FK_t_promotion_t_design">
+            <End Role="t_design" EntitySet="t_design" />
+            <End Role="t_promotion" EntitySet="t_promotion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_promotion_t_event" Association="Self.FK_t_promotion_t_event">
+            <End Role="t_event" EntitySet="t_event" />
+            <End Role="t_promotion" EntitySet="t_promotion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_souvenir_item_m_souvenir" Association="Self.FK_t_souvenir_item_m_souvenir">
+            <End Role="m_souvenir" EntitySet="m_souvenir" />
+            <End Role="t_souvenir_item" EntitySet="t_souvenir_item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_souvenir_item_t_souvenir" Association="Self.FK_t_souvenir_item_t_souvenir">
+            <End Role="t_souvenir" EntitySet="t_souvenir" />
+            <End Role="t_souvenir_item" EntitySet="t_souvenir_item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_souvenir_m_employee" Association="Self.FK_t_souvenir_m_employee">
+            <End Role="m_employee" EntitySet="m_employee" />
+            <End Role="t_souvenir" EntitySet="t_souvenir" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_souvenir_m_employee1" Association="Self.FK_t_souvenir_m_employee1">
+            <End Role="m_employee" EntitySet="m_employee" />
+            <End Role="t_souvenir" EntitySet="t_souvenir" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_souvenir_m_employee2" Association="Self.FK_t_souvenir_m_employee2">
+            <End Role="m_employee" EntitySet="m_employee" />
+            <End Role="t_souvenir" EntitySet="t_souvenir" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_souvenir_m_employee3" Association="Self.FK_t_souvenir_m_employee3">
+            <End Role="m_employee" EntitySet="m_employee" />
+            <End Role="t_souvenir" EntitySet="t_souvenir" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_souvenir_m_employee4" Association="Self.FK_t_souvenir_m_employee4">
+            <End Role="m_employee" EntitySet="m_employee" />
+            <End Role="t_souvenir" EntitySet="t_souvenir" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_souvenir_t_event" Association="Self.FK_t_souvenir_t_event">
+            <End Role="t_event" EntitySet="t_event" />
+            <End Role="t_souvenir" EntitySet="t_souvenir" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MiniProjectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="m_company">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="is_active" Type="Boolean" Nullable="false" />
+          <Property Name="created_by" Type="Int32" Nullable="false" />
+          <Property Name="created_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="updated_by" Type="Int32" />
+          <Property Name="updated_date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="m_employee" Relationship="Self.FK_m_employee_m_employee" FromRole="m_company" ToRole="m_employee" />
+        </EntityType>
+        <EntityType Name="m_employee">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="employee_number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="first_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="last_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="m_company_id" Type="Int32" />
+          <Property Name="email" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="is_active" Type="Boolean" Nullable="false" />
+          <Property Name="created_by" Type="Int32" Nullable="false" />
+          <Property Name="created_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="updated_by" Type="Int32" />
+          <Property Name="updated_date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="m_company" Relationship="Self.FK_m_employee_m_employee" FromRole="m_employee" ToRole="m_company" />
+          <NavigationProperty Name="m_user" Relationship="Self.FK_m_user_m_employee" FromRole="m_employee" ToRole="m_user" />
+          <NavigationProperty Name="t_design_item" Relationship="Self.FK_t_design_item_m_employee" FromRole="m_employee" ToRole="t_design_item" />
+          <NavigationProperty Name="t_design" Relationship="Self.FK_t_design_m_employee" FromRole="m_employee" ToRole="t_design" />
+          <NavigationProperty Name="t_design1" Relationship="Self.FK_t_design_m_employee1" FromRole="m_employee" ToRole="t_design" />
+          <NavigationProperty Name="t_design2" Relationship="Self.FK_t_design_m_employee2" FromRole="m_employee" ToRole="t_design" />
+          <NavigationProperty Name="t_event" Relationship="Self.FK_t_event_m_employee" FromRole="m_employee" ToRole="t_event" />
+          <NavigationProperty Name="t_event1" Relationship="Self.FK_t_event_m_employee1" FromRole="m_employee" ToRole="t_event" />
+          <NavigationProperty Name="t_event2" Relationship="Self.FK_t_event_m_employee2" FromRole="m_employee" ToRole="t_event" />
+          <NavigationProperty Name="t_promotion_item" Relationship="Self.FK_t_promotion_item_m_employee" FromRole="m_employee" ToRole="t_promotion_item" />
+          <NavigationProperty Name="t_promotion" Relationship="Self.FK_t_promotion_m_employee" FromRole="m_employee" ToRole="t_promotion" />
+          <NavigationProperty Name="t_promotion1" Relationship="Self.FK_t_promotion_m_employee1" FromRole="m_employee" ToRole="t_promotion" />
+          <NavigationProperty Name="t_promotion2" Relationship="Self.FK_t_promotion_m_employee2" FromRole="m_employee" ToRole="t_promotion" />
+          <NavigationProperty Name="t_souvenir" Relationship="Self.FK_t_souvenir_m_employee" FromRole="m_employee" ToRole="t_souvenir" />
+          <NavigationProperty Name="t_souvenir1" Relationship="Self.FK_t_souvenir_m_employee1" FromRole="m_employee" ToRole="t_souvenir" />
+          <NavigationProperty Name="t_souvenir2" Relationship="Self.FK_t_souvenir_m_employee2" FromRole="m_employee" ToRole="t_souvenir" />
+          <NavigationProperty Name="t_souvenir3" Relationship="Self.FK_t_souvenir_m_employee3" FromRole="m_employee" ToRole="t_souvenir" />
+          <NavigationProperty Name="t_souvenir4" Relationship="Self.FK_t_souvenir_m_employee4" FromRole="m_employee" ToRole="t_souvenir" />
+        </EntityType>
+        <EntityType Name="m_menu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="controller" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="parent_id" Type="Int32" />
+          <Property Name="is_active" Type="Boolean" Nullable="false" />
+          <Property Name="created_by" Type="Int32" Nullable="false" />
+          <Property Name="created_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="updated_by" Type="Int32" />
+          <Property Name="updated_date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="m_menu_access" Relationship="Self.FK_m_menu_access_m_menu" FromRole="m_menu" ToRole="m_menu_access" />
+        </EntityType>
+        <EntityType Name="m_menu_access">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="m_role_id" Type="Int32" Nullable="false" />
+          <Property Name="m_menu_id" Type="Int32" Nullable="false" />
+          <Property Name="is_active" Type="Boolean" Nullable="false" />
+          <Property Name="created_by" Type="Int32" Nullable="false" />
+          <Property Name="created_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="updated_by" Type="Int32" />
+          <Property Name="updated_date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="m_menu" Relationship="Self.FK_m_menu_access_m_menu" FromRole="m_menu_access" ToRole="m_menu" />
+          <NavigationProperty Name="m_role" Relationship="Self.FK_m_menu_access_m_role" FromRole="m_menu_access" ToRole="m_role" />
+        </EntityType>
+        <EntityType Name="m_product">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="is_active" Type="Boolean" Nullable="false" />
+          <Property Name="created_by" Type="Int32" Nullable="false" />
+          <Property Name="created_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="updated_by" Type="Int32" />
+          <Property Name="updated_date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="t_design_item" Relationship="Self.FK_t_design_item_m_product" FromRole="m_product" ToRole="t_design_item" />
+          <NavigationProperty Name="t_promotion_item" Relationship="Self.FK_t_promotion_item_m_product" FromRole="m_product" ToRole="t_promotion_item" />
+        </EntityType>
+        <EntityType Name="m_role">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="is_active" Type="Boolean" Nullable="false" />
+          <Property Name="created_by" Type="Int32" Nullable="false" />
+          <Property Name="created_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="updated_by" Type="Int32" />
+          <Property Name="updated_date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="m_menu_access" Relationship="Self.FK_m_menu_access_m_role" FromRole="m_role" ToRole="m_menu_access" />
+          <NavigationProperty Name="m_user" Relationship="Self.FK_m_user_m_role" FromRole="m_role" ToRole="m_user" />
+        </EntityType>
+        <EntityType Name="m_souvenir">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="m_unit_id" Type="Int32" Nullable="false" />
+          <Property Name="is_active" Type="Boolean" Nullable="false" />
+          <Property Name="created_by" Type="Int32" Nullable="false" />
+          <Property Name="created_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="updated_by" Type="Int32" />
+          <Property Name="updated_date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="m_unit" Relationship="Self.FK_m_souvenir_m_unit" FromRole="m_souvenir" ToRole="m_unit" />
+          <NavigationProperty Name="t_souvenir_item" Relationship="Self.FK_t_souvenir_item_m_souvenir" FromRole="m_souvenir" ToRole="t_souvenir_item" />
+        </EntityType>
+        <EntityType Name="m_unit">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="is_active" Type="Boolean" Nullable="false" />
+          <Property Name="created_by" Type="Int32" Nullable="false" />
+          <Property Name="created_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="updated_by" Type="Int32" />
+          <Property Name="updated_date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="m_souvenir" Relationship="Self.FK_m_souvenir_m_unit" FromRole="m_unit" ToRole="m_souvenir" />
+        </EntityType>
+        <EntityType Name="m_user">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="m_role_id" Type="Int32" Nullable="false" />
+          <Property Name="m_employee_id" Type="Int32" Nullable="false" />
+          <Property Name="is_active" Type="Boolean" Nullable="false" />
+          <Property Name="created_by" Type="Int32" Nullable="false" />
+          <Property Name="created_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="updated_by" Type="Int32" />
+          <Property Name="updated_date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="m_employee" Relationship="Self.FK_m_user_m_employee" FromRole="m_user" ToRole="m_employee" />
+          <NavigationProperty Name="m_role" Relationship="Self.FK_m_user_m_role" FromRole="m_user" ToRole="m_role" />
+        </EntityType>
+        <EntityType Name="t_design">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="t_event_id" Type="Int32" Nullable="false" />
+          <Property Name="title_header" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="request_by" Type="Int32" Nullable="false" />
+          <Property Name="request_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="approved_by" Type="Int32" />
+          <Property Name="approved_date" Type="DateTime" Precision="3" />
+          <Property Name="assign_to" Type="Int32" />
+          <Property Name="closed_date" Type="DateTime" Precision="3" />
+          <Property Name="note" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="Int32" />
+          <Property Name="reject_reason" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="is_active" Type="Boolean" />
+          <Property Name="created_by" Type="Int32" Nullable="false" />
+          <Property Name="created_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="updated_by" Type="Int32" />
+          <Property Name="updated_date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="m_employee" Relationship="Self.FK_t_design_m_employee" FromRole="t_design" ToRole="m_employee" />
+          <NavigationProperty Name="m_employee1" Relationship="Self.FK_t_design_m_employee1" FromRole="t_design" ToRole="m_employee" />
+          <NavigationProperty Name="m_employee2" Relationship="Self.FK_t_design_m_employee2" FromRole="t_design" ToRole="m_employee" />
+          <NavigationProperty Name="t_design_item" Relationship="Self.FK_t_design_item_t_design" FromRole="t_design" ToRole="t_design_item" />
+          <NavigationProperty Name="t_event" Relationship="Self.FK_t_design_t_event" FromRole="t_design" ToRole="t_event" />
+          <NavigationProperty Name="t_promotion" Relationship="Self.FK_t_promotion_t_design" FromRole="t_design" ToRole="t_promotion" />
+        </EntityType>
+        <EntityType Name="t_design_item">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="t_design_id" Type="Int32" Nullable="false" />
+          <Property Name="m_product_id" Type="Int32" Nullable="false" />
+          <Property Name="title_item" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="request_pic" Type="Int32" Nullable="false" />
+          <Property Name="start_date" Type="DateTime" Precision="3" />
+          <Property Name="end_date" Type="DateTime" Precision="3" />
+          <Property Name="request_due_date" Type="DateTime" Precision="3" />
+          <Property Name="note" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="is_active" Type="Boolean" />
+          <Property Name="created_by" Type="Int32" Nullable="false" />
+          <Property Name="created_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="updated_by" Type="Int32" />
+          <Property Name="updated_date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="m_employee" Relationship="Self.FK_t_design_item_m_employee" FromRole="t_design_item" ToRole="m_employee" />
+          <NavigationProperty Name="m_product" Relationship="Self.FK_t_design_item_m_product" FromRole="t_design_item" ToRole="m_product" />
+          <NavigationProperty Name="t_design" Relationship="Self.FK_t_design_item_t_design" FromRole="t_design_item" ToRole="t_design" />
+          <NavigationProperty Name="t_design_item_file" Relationship="Self.FK_t_design_item_file_t_design_item" FromRole="t_design_item" ToRole="t_design_item_file" />
+          <NavigationProperty Name="t_promotion_item" Relationship="Self.FK_t_promotion_item_t_design_item" FromRole="t_design_item" ToRole="t_promotion_item" />
+        </EntityType>
+        <EntityType Name="t_design_item_file">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="t_design_item_id" Type="Int32" Nullable="false" />
+          <Property Name="filename" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="size" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="extension" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="is_active" Type="Boolean" />
+          <Property Name="created_by" Type="Int32" Nullable="false" />
+          <Property Name="created_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="updated_by" Type="Int32" />
+          <Property Name="updated_date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="t_design_item" Relationship="Self.FK_t_design_item_file_t_design_item" FromRole="t_design_item_file" ToRole="t_design_item" />
+        </EntityType>
+        <EntityType Name="t_event">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="event_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="start_date" Type="DateTime" Precision="3" />
+          <Property Name="end_date" Type="DateTime" Precision="3" />
+          <Property Name="place" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="budget" Type="Int64" />
+          <Property Name="request_by" Type="Int32" />
+          <Property Name="request_date" Type="DateTime" Precision="3" />
+          <Property Name="approved_by" Type="Int32" />
+          <Property Name="approved_date" Type="DateTime" Precision="3" />
+          <Property Name="assign_to" Type="Int32" />
+          <Property Name="closed_date" Type="DateTime" Precision="3" />
+          <Property Name="note" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="Int32" />
+          <Property Name="reject_reason" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="is_active" Type="Boolean" />
+          <Property Name="created_by" Type="Int32" />
+          <Property Name="created_date" Type="DateTime" Precision="3" />
+          <Property Name="updated_by" Type="Int32" />
+          <Property Name="updated_date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="m_employee" Relationship="Self.FK_t_event_m_employee" FromRole="t_event" ToRole="m_employee" />
+          <NavigationProperty Name="m_employee1" Relationship="Self.FK_t_event_m_employee1" FromRole="t_event" ToRole="m_employee" />
+          <NavigationProperty Name="m_employee2" Relationship="Self.FK_t_event_m_employee2" FromRole="t_event" ToRole="m_employee" />
+          <NavigationProperty Name="t_design" Relationship="Self.FK_t_design_t_event" FromRole="t_event" ToRole="t_design" />
+          <NavigationProperty Name="t_promotion" Relationship="Self.FK_t_promotion_t_event" FromRole="t_event" ToRole="t_promotion" />
+          <NavigationProperty Name="t_souvenir" Relationship="Self.FK_t_souvenir_t_event" FromRole="t_event" ToRole="t_souvenir" />
+        </EntityType>
+        <EntityType Name="t_promotion">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="flag_design" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="title" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="t_event_id" Type="Int32" />
+          <Property Name="t_design_id" Type="Int32" />
+          <Property Name="request_by" Type="Int32" />
+          <Property Name="request_date" Type="DateTime" Precision="3" />
+          <Property Name="approved_by" Type="Int32" />
+          <Property Name="approved_date" Type="DateTime" Precision="3" />
+          <Property Name="assign_to" Type="Int32" />
+          <Property Name="close_date" Type="DateTime" Precision="3" />
+          <Property Name="note" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="Int32" />
+          <Property Name="reject_reason" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="is_active" Type="Boolean" />
+          <Property Name="created_by" Type="Int32" Nullable="false" />
+          <Property Name="created_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="updated_by" Type="Int32" />
+          <Property Name="updated_date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="m_employee" Relationship="Self.FK_t_promotion_m_employee" FromRole="t_promotion" ToRole="m_employee" />
+          <NavigationProperty Name="m_employee1" Relationship="Self.FK_t_promotion_m_employee1" FromRole="t_promotion" ToRole="m_employee" />
+          <NavigationProperty Name="m_employee2" Relationship="Self.FK_t_promotion_m_employee2" FromRole="t_promotion" ToRole="m_employee" />
+          <NavigationProperty Name="t_design" Relationship="Self.FK_t_promotion_t_design" FromRole="t_promotion" ToRole="t_design" />
+          <NavigationProperty Name="t_event" Relationship="Self.FK_t_promotion_t_event" FromRole="t_promotion" ToRole="t_event" />
+          <NavigationProperty Name="t_promotion_item_file" Relationship="Self.FK_t_promotion_item_file_t_promotion" FromRole="t_promotion" ToRole="t_promotion_item_file" />
+          <NavigationProperty Name="t_promotion_item" Relationship="Self.FK_t_promotion_item_t_promotion" FromRole="t_promotion" ToRole="t_promotion_item" />
+        </EntityType>
+        <EntityType Name="t_promotion_item">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="t_promotion_id" Type="Int32" Nullable="false" />
+          <Property Name="t_design_item_id" Type="Int32" />
+          <Property Name="m_product_id" Type="Int32" Nullable="false" />
+          <Property Name="title" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="request_pic" Type="Int32" Nullable="false" />
+          <Property Name="start_date" Type="DateTime" Precision="3" />
+          <Property Name="end_date" Type="DateTime" Precision="3" />
+          <Property Name="request_due_date" Type="DateTime" Precision="3" />
+          <Property Name="qty" Type="Int64" />
+          <Property Name="todo" Type="Int32" Nullable="false" />
+          <Property Name="note" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="is_active" Type="Boolean" />
+          <Property Name="created_by" Type="Int32" Nullable="false" />
+          <Property Name="created_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="updated_by" Type="Int32" />
+          <Property Name="updated_date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="m_employee" Relationship="Self.FK_t_promotion_item_m_employee" FromRole="t_promotion_item" ToRole="m_employee" />
+          <NavigationProperty Name="m_product" Relationship="Self.FK_t_promotion_item_m_product" FromRole="t_promotion_item" ToRole="m_product" />
+          <NavigationProperty Name="t_design_item" Relationship="Self.FK_t_promotion_item_t_design_item" FromRole="t_promotion_item" ToRole="t_design_item" />
+          <NavigationProperty Name="t_promotion" Relationship="Self.FK_t_promotion_item_t_promotion" FromRole="t_promotion_item" ToRole="t_promotion" />
+        </EntityType>
+        <EntityType Name="t_promotion_item_file">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="t_promotion_id" Type="Int32" Nullable="false" />
+          <Property Name="filename" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="size" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="extension" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="start_date" Type="DateTime" Precision="3" />
+          <Property Name="end_date" Type="DateTime" Precision="3" />
+          <Property Name="request_due_date" Type="DateTime" Precision="3" />
+          <Property Name="qty" Type="Int64" />
+          <Property Name="todo" Type="Int32" Nullable="false" />
+          <Property Name="note" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="is_active" Type="Boolean" />
+          <Property Name="created_by" Type="Int32" Nullable="false" />
+          <Property Name="created_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="updated_by" Type="Int32" />
+          <Property Name="updated_date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="t_promotion" Relationship="Self.FK_t_promotion_item_file_t_promotion" FromRole="t_promotion_item_file" ToRole="t_promotion" />
+        </EntityType>
+        <EntityType Name="t_souvenir">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="t_event_id" Type="Int32" />
+          <Property Name="request_by" Type="Int32" Nullable="false" />
+          <Property Name="request_date" Type="DateTime" Precision="3" />
+          <Property Name="request_due_date" Type="DateTime" Precision="3" />
+          <Property Name="approved_by" Type="Int32" />
+          <Property Name="approved_date" Type="DateTime" Precision="3" />
+          <Property Name="received_by" Type="Int32" />
+          <Property Name="received_date" Type="DateTime" Precision="3" />
+          <Property Name="settlement_by" Type="Int32" />
+          <Property Name="settlement_date" Type="DateTime" Precision="3" />
+          <Property Name="settlement_approved_by" Type="Int32" />
+          <Property Name="settlement_approved_date" Type="DateTime" Precision="3" />
+          <Property Name="status" Type="Int32" />
+          <Property Name="note" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="reject_reason" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="is_active" Type="Boolean" />
+          <Property Name="created_by" Type="Int32" />
+          <Property Name="created_date" Type="DateTime" Precision="3" />
+          <Property Name="updated_by" Type="Int32" />
+          <Property Name="updated_date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="m_employee" Relationship="Self.FK_t_souvenir_m_employee" FromRole="t_souvenir" ToRole="m_employee" />
+          <NavigationProperty Name="m_employee1" Relationship="Self.FK_t_souvenir_m_employee1" FromRole="t_souvenir" ToRole="m_employee" />
+          <NavigationProperty Name="m_employee2" Relationship="Self.FK_t_souvenir_m_employee2" FromRole="t_souvenir" ToRole="m_employee" />
+          <NavigationProperty Name="m_employee3" Relationship="Self.FK_t_souvenir_m_employee3" FromRole="t_souvenir" ToRole="m_employee" />
+          <NavigationProperty Name="m_employee4" Relationship="Self.FK_t_souvenir_m_employee4" FromRole="t_souvenir" ToRole="m_employee" />
+          <NavigationProperty Name="t_event" Relationship="Self.FK_t_souvenir_t_event" FromRole="t_souvenir" ToRole="t_event" />
+          <NavigationProperty Name="t_souvenir_item" Relationship="Self.FK_t_souvenir_item_t_souvenir" FromRole="t_souvenir" ToRole="t_souvenir_item" />
+        </EntityType>
+        <EntityType Name="t_souvenir_item">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="t_souvenir_id" Type="Int32" Nullable="false" />
+          <Property Name="m_souvenir_id" Type="Int32" Nullable="false" />
+          <Property Name="qty" Type="Int64" />
+          <Property Name="qty_settlement" Type="Int64" />
+          <Property Name="note" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="is_active" Type="Boolean" Nullable="false" />
+          <Property Name="created_by" Type="Int32" />
+          <Property Name="created_date" Type="DateTime" Precision="3" />
+          <Property Name="updated_by" Type="Int32" />
+          <Property Name="updated_date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="m_souvenir" Relationship="Self.FK_t_souvenir_item_m_souvenir" FromRole="t_souvenir_item" ToRole="m_souvenir" />
+          <NavigationProperty Name="t_souvenir" Relationship="Self.FK_t_souvenir_item_t_souvenir" FromRole="t_souvenir_item" ToRole="t_souvenir" />
+        </EntityType>
+        <Association Name="FK_m_employee_m_employee">
+          <End Role="m_company" Type="Self.m_company" Multiplicity="0..1" />
+          <End Role="m_employee" Type="Self.m_employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_company">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="m_employee">
+              <PropertyRef Name="m_company_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_m_user_m_employee">
+          <End Role="m_employee" Type="Self.m_employee" Multiplicity="1" />
+          <End Role="m_user" Type="Self.m_user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_employee">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="m_user">
+              <PropertyRef Name="m_employee_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_design_item_m_employee">
+          <End Role="m_employee" Type="Self.m_employee" Multiplicity="1" />
+          <End Role="t_design_item" Type="Self.t_design_item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_employee">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_design_item">
+              <PropertyRef Name="request_pic" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_design_m_employee">
+          <End Role="m_employee" Type="Self.m_employee" Multiplicity="1" />
+          <End Role="t_design" Type="Self.t_design" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_employee">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_design">
+              <PropertyRef Name="request_by" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_design_m_employee1">
+          <End Role="m_employee" Type="Self.m_employee" Multiplicity="0..1" />
+          <End Role="t_design" Type="Self.t_design" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_employee">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_design">
+              <PropertyRef Name="approved_by" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_design_m_employee2">
+          <End Role="m_employee" Type="Self.m_employee" Multiplicity="0..1" />
+          <End Role="t_design" Type="Self.t_design" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_employee">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_design">
+              <PropertyRef Name="assign_to" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_event_m_employee">
+          <End Role="m_employee" Type="Self.m_employee" Multiplicity="0..1" />
+          <End Role="t_event" Type="Self.t_event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_employee">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_event">
+              <PropertyRef Name="request_by" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_event_m_employee1">
+          <End Role="m_employee" Type="Self.m_employee" Multiplicity="0..1" />
+          <End Role="t_event" Type="Self.t_event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_employee">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_event">
+              <PropertyRef Name="approved_by" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_event_m_employee2">
+          <End Role="m_employee" Type="Self.m_employee" Multiplicity="0..1" />
+          <End Role="t_event" Type="Self.t_event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_employee">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_event">
+              <PropertyRef Name="assign_to" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_promotion_item_m_employee">
+          <End Role="m_employee" Type="Self.m_employee" Multiplicity="1" />
+          <End Role="t_promotion_item" Type="Self.t_promotion_item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_employee">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_promotion_item">
+              <PropertyRef Name="request_pic" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_promotion_m_employee">
+          <End Role="m_employee" Type="Self.m_employee" Multiplicity="0..1" />
+          <End Role="t_promotion" Type="Self.t_promotion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_employee">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_promotion">
+              <PropertyRef Name="request_by" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_promotion_m_employee1">
+          <End Role="m_employee" Type="Self.m_employee" Multiplicity="0..1" />
+          <End Role="t_promotion" Type="Self.t_promotion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_employee">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_promotion">
+              <PropertyRef Name="approved_by" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_promotion_m_employee2">
+          <End Role="m_employee" Type="Self.m_employee" Multiplicity="0..1" />
+          <End Role="t_promotion" Type="Self.t_promotion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_employee">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_promotion">
+              <PropertyRef Name="assign_to" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_souvenir_m_employee">
+          <End Role="m_employee" Type="Self.m_employee" Multiplicity="1" />
+          <End Role="t_souvenir" Type="Self.t_souvenir" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_employee">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_souvenir">
+              <PropertyRef Name="request_by" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_souvenir_m_employee1">
+          <End Role="m_employee" Type="Self.m_employee" Multiplicity="0..1" />
+          <End Role="t_souvenir" Type="Self.t_souvenir" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_employee">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_souvenir">
+              <PropertyRef Name="approved_by" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_souvenir_m_employee2">
+          <End Role="m_employee" Type="Self.m_employee" Multiplicity="0..1" />
+          <End Role="t_souvenir" Type="Self.t_souvenir" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_employee">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_souvenir">
+              <PropertyRef Name="received_by" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_souvenir_m_employee3">
+          <End Role="m_employee" Type="Self.m_employee" Multiplicity="0..1" />
+          <End Role="t_souvenir" Type="Self.t_souvenir" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_employee">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_souvenir">
+              <PropertyRef Name="settlement_by" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_souvenir_m_employee4">
+          <End Role="m_employee" Type="Self.m_employee" Multiplicity="0..1" />
+          <End Role="t_souvenir" Type="Self.t_souvenir" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_employee">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_souvenir">
+              <PropertyRef Name="settlement_approved_by" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_m_menu_access_m_menu">
+          <End Role="m_menu" Type="Self.m_menu" Multiplicity="1" />
+          <End Role="m_menu_access" Type="Self.m_menu_access" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_menu">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="m_menu_access">
+              <PropertyRef Name="m_menu_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_m_menu_access_m_role">
+          <End Role="m_role" Type="Self.m_role" Multiplicity="1" />
+          <End Role="m_menu_access" Type="Self.m_menu_access" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_role">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="m_menu_access">
+              <PropertyRef Name="m_role_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_design_item_m_product">
+          <End Role="m_product" Type="Self.m_product" Multiplicity="1" />
+          <End Role="t_design_item" Type="Self.t_design_item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_product">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_design_item">
+              <PropertyRef Name="m_product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_promotion_item_m_product">
+          <End Role="m_product" Type="Self.m_product" Multiplicity="1" />
+          <End Role="t_promotion_item" Type="Self.t_promotion_item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_product">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_promotion_item">
+              <PropertyRef Name="m_product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_m_user_m_role">
+          <End Role="m_role" Type="Self.m_role" Multiplicity="1" />
+          <End Role="m_user" Type="Self.m_user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_role">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="m_user">
+              <PropertyRef Name="m_role_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_m_souvenir_m_unit">
+          <End Role="m_unit" Type="Self.m_unit" Multiplicity="1" />
+          <End Role="m_souvenir" Type="Self.m_souvenir" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_unit">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="m_souvenir">
+              <PropertyRef Name="m_unit_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_souvenir_item_m_souvenir">
+          <End Role="m_souvenir" Type="Self.m_souvenir" Multiplicity="1" />
+          <End Role="t_souvenir_item" Type="Self.t_souvenir_item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_souvenir">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_souvenir_item">
+              <PropertyRef Name="m_souvenir_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_design_item_t_design">
+          <End Role="t_design" Type="Self.t_design" Multiplicity="1" />
+          <End Role="t_design_item" Type="Self.t_design_item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_design">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_design_item">
+              <PropertyRef Name="t_design_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_design_t_event">
+          <End Role="t_event" Type="Self.t_event" Multiplicity="1" />
+          <End Role="t_design" Type="Self.t_design" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_event">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_design">
+              <PropertyRef Name="t_event_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_promotion_t_design">
+          <End Role="t_design" Type="Self.t_design" Multiplicity="0..1" />
+          <End Role="t_promotion" Type="Self.t_promotion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_design">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_promotion">
+              <PropertyRef Name="t_design_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_design_item_file_t_design_item">
+          <End Role="t_design_item" Type="Self.t_design_item" Multiplicity="1" />
+          <End Role="t_design_item_file" Type="Self.t_design_item_file" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_design_item">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_design_item_file">
+              <PropertyRef Name="t_design_item_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_promotion_item_t_design_item">
+          <End Role="t_design_item" Type="Self.t_design_item" Multiplicity="0..1" />
+          <End Role="t_promotion_item" Type="Self.t_promotion_item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_design_item">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_promotion_item">
+              <PropertyRef Name="t_design_item_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_promotion_t_event">
+          <End Role="t_event" Type="Self.t_event" Multiplicity="0..1" />
+          <End Role="t_promotion" Type="Self.t_promotion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_event">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_promotion">
+              <PropertyRef Name="t_event_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_souvenir_t_event">
+          <End Role="t_event" Type="Self.t_event" Multiplicity="0..1" />
+          <End Role="t_souvenir" Type="Self.t_souvenir" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_event">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_souvenir">
+              <PropertyRef Name="t_event_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_promotion_item_file_t_promotion">
+          <End Role="t_promotion" Type="Self.t_promotion" Multiplicity="1" />
+          <End Role="t_promotion_item_file" Type="Self.t_promotion_item_file" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_promotion">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_promotion_item_file">
+              <PropertyRef Name="t_promotion_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_promotion_item_t_promotion">
+          <End Role="t_promotion" Type="Self.t_promotion" Multiplicity="1" />
+          <End Role="t_promotion_item" Type="Self.t_promotion_item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_promotion">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_promotion_item">
+              <PropertyRef Name="t_promotion_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_souvenir_item_t_souvenir">
+          <End Role="t_souvenir" Type="Self.t_souvenir" Multiplicity="1" />
+          <End Role="t_souvenir_item" Type="Self.t_souvenir_item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_souvenir">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_souvenir_item">
+              <PropertyRef Name="t_souvenir_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MiniProjectEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="m_company" EntityType="Self.m_company" />
+          <EntitySet Name="m_employee" EntityType="Self.m_employee" />
+          <EntitySet Name="m_menu" EntityType="Self.m_menu" />
+          <EntitySet Name="m_menu_access" EntityType="Self.m_menu_access" />
+          <EntitySet Name="m_product" EntityType="Self.m_product" />
+          <EntitySet Name="m_role" EntityType="Self.m_role" />
+          <EntitySet Name="m_souvenir" EntityType="Self.m_souvenir" />
+          <EntitySet Name="m_unit" EntityType="Self.m_unit" />
+          <EntitySet Name="m_user" EntityType="Self.m_user" />
+          <EntitySet Name="t_design" EntityType="Self.t_design" />
+          <EntitySet Name="t_design_item" EntityType="Self.t_design_item" />
+          <EntitySet Name="t_design_item_file" EntityType="Self.t_design_item_file" />
+          <EntitySet Name="t_event" EntityType="Self.t_event" />
+          <EntitySet Name="t_promotion" EntityType="Self.t_promotion" />
+          <EntitySet Name="t_promotion_item" EntityType="Self.t_promotion_item" />
+          <EntitySet Name="t_promotion_item_file" EntityType="Self.t_promotion_item_file" />
+          <EntitySet Name="t_souvenir" EntityType="Self.t_souvenir" />
+          <EntitySet Name="t_souvenir_item" EntityType="Self.t_souvenir_item" />
+          <AssociationSet Name="FK_m_employee_m_employee" Association="Self.FK_m_employee_m_employee">
+            <End Role="m_company" EntitySet="m_company" />
+            <End Role="m_employee" EntitySet="m_employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_m_user_m_employee" Association="Self.FK_m_user_m_employee">
+            <End Role="m_employee" EntitySet="m_employee" />
+            <End Role="m_user" EntitySet="m_user" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_design_item_m_employee" Association="Self.FK_t_design_item_m_employee">
+            <End Role="m_employee" EntitySet="m_employee" />
+            <End Role="t_design_item" EntitySet="t_design_item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_design_m_employee" Association="Self.FK_t_design_m_employee">
+            <End Role="m_employee" EntitySet="m_employee" />
+            <End Role="t_design" EntitySet="t_design" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_design_m_employee1" Association="Self.FK_t_design_m_employee1">
+            <End Role="m_employee" EntitySet="m_employee" />
+            <End Role="t_design" EntitySet="t_design" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_design_m_employee2" Association="Self.FK_t_design_m_employee2">
+            <End Role="m_employee" EntitySet="m_employee" />
+            <End Role="t_design" EntitySet="t_design" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_event_m_employee" Association="Self.FK_t_event_m_employee">
+            <End Role="m_employee" EntitySet="m_employee" />
+            <End Role="t_event" EntitySet="t_event" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_event_m_employee1" Association="Self.FK_t_event_m_employee1">
+            <End Role="m_employee" EntitySet="m_employee" />
+            <End Role="t_event" EntitySet="t_event" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_event_m_employee2" Association="Self.FK_t_event_m_employee2">
+            <End Role="m_employee" EntitySet="m_employee" />
+            <End Role="t_event" EntitySet="t_event" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_promotion_item_m_employee" Association="Self.FK_t_promotion_item_m_employee">
+            <End Role="m_employee" EntitySet="m_employee" />
+            <End Role="t_promotion_item" EntitySet="t_promotion_item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_promotion_m_employee" Association="Self.FK_t_promotion_m_employee">
+            <End Role="m_employee" EntitySet="m_employee" />
+            <End Role="t_promotion" EntitySet="t_promotion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_promotion_m_employee1" Association="Self.FK_t_promotion_m_employee1">
+            <End Role="m_employee" EntitySet="m_employee" />
+            <End Role="t_promotion" EntitySet="t_promotion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_promotion_m_employee2" Association="Self.FK_t_promotion_m_employee2">
+            <End Role="m_employee" EntitySet="m_employee" />
+            <End Role="t_promotion" EntitySet="t_promotion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_souvenir_m_employee" Association="Self.FK_t_souvenir_m_employee">
+            <End Role="m_employee" EntitySet="m_employee" />
+            <End Role="t_souvenir" EntitySet="t_souvenir" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_souvenir_m_employee1" Association="Self.FK_t_souvenir_m_employee1">
+            <End Role="m_employee" EntitySet="m_employee" />
+            <End Role="t_souvenir" EntitySet="t_souvenir" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_souvenir_m_employee2" Association="Self.FK_t_souvenir_m_employee2">
+            <End Role="m_employee" EntitySet="m_employee" />
+            <End Role="t_souvenir" EntitySet="t_souvenir" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_souvenir_m_employee3" Association="Self.FK_t_souvenir_m_employee3">
+            <End Role="m_employee" EntitySet="m_employee" />
+            <End Role="t_souvenir" EntitySet="t_souvenir" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_souvenir_m_employee4" Association="Self.FK_t_souvenir_m_employee4">
+            <End Role="m_employee" EntitySet="m_employee" />
+            <End Role="t_souvenir" EntitySet="t_souvenir" />
+          </AssociationSet>
+          <AssociationSet Name="FK_m_menu_access_m_menu" Association="Self.FK_m_menu_access_m_menu">
+            <End Role="m_menu" EntitySet="m_menu" />
+            <End Role="m_menu_access" EntitySet="m_menu_access" />
+          </AssociationSet>
+          <AssociationSet Name="FK_m_menu_access_m_role" Association="Self.FK_m_menu_access_m_role">
+            <End Role="m_role" EntitySet="m_role" />
+            <End Role="m_menu_access" EntitySet="m_menu_access" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_design_item_m_product" Association="Self.FK_t_design_item_m_product">
+            <End Role="m_product" EntitySet="m_product" />
+            <End Role="t_design_item" EntitySet="t_design_item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_promotion_item_m_product" Association="Self.FK_t_promotion_item_m_product">
+            <End Role="m_product" EntitySet="m_product" />
+            <End Role="t_promotion_item" EntitySet="t_promotion_item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_m_user_m_role" Association="Self.FK_m_user_m_role">
+            <End Role="m_role" EntitySet="m_role" />
+            <End Role="m_user" EntitySet="m_user" />
+          </AssociationSet>
+          <AssociationSet Name="FK_m_souvenir_m_unit" Association="Self.FK_m_souvenir_m_unit">
+            <End Role="m_unit" EntitySet="m_unit" />
+            <End Role="m_souvenir" EntitySet="m_souvenir" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_souvenir_item_m_souvenir" Association="Self.FK_t_souvenir_item_m_souvenir">
+            <End Role="m_souvenir" EntitySet="m_souvenir" />
+            <End Role="t_souvenir_item" EntitySet="t_souvenir_item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_design_item_t_design" Association="Self.FK_t_design_item_t_design">
+            <End Role="t_design" EntitySet="t_design" />
+            <End Role="t_design_item" EntitySet="t_design_item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_design_t_event" Association="Self.FK_t_design_t_event">
+            <End Role="t_event" EntitySet="t_event" />
+            <End Role="t_design" EntitySet="t_design" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_promotion_t_design" Association="Self.FK_t_promotion_t_design">
+            <End Role="t_design" EntitySet="t_design" />
+            <End Role="t_promotion" EntitySet="t_promotion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_design_item_file_t_design_item" Association="Self.FK_t_design_item_file_t_design_item">
+            <End Role="t_design_item" EntitySet="t_design_item" />
+            <End Role="t_design_item_file" EntitySet="t_design_item_file" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_promotion_item_t_design_item" Association="Self.FK_t_promotion_item_t_design_item">
+            <End Role="t_design_item" EntitySet="t_design_item" />
+            <End Role="t_promotion_item" EntitySet="t_promotion_item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_promotion_t_event" Association="Self.FK_t_promotion_t_event">
+            <End Role="t_event" EntitySet="t_event" />
+            <End Role="t_promotion" EntitySet="t_promotion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_souvenir_t_event" Association="Self.FK_t_souvenir_t_event">
+            <End Role="t_event" EntitySet="t_event" />
+            <End Role="t_souvenir" EntitySet="t_souvenir" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_promotion_item_file_t_promotion" Association="Self.FK_t_promotion_item_file_t_promotion">
+            <End Role="t_promotion" EntitySet="t_promotion" />
+            <End Role="t_promotion_item_file" EntitySet="t_promotion_item_file" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_promotion_item_t_promotion" Association="Self.FK_t_promotion_item_t_promotion">
+            <End Role="t_promotion" EntitySet="t_promotion" />
+            <End Role="t_promotion_item" EntitySet="t_promotion_item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_souvenir_item_t_souvenir" Association="Self.FK_t_souvenir_item_t_souvenir">
+            <End Role="t_souvenir" EntitySet="t_souvenir" />
+            <End Role="t_souvenir_item" EntitySet="t_souvenir_item" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MiniProjectModelStoreContainer" CdmEntityContainer="MiniProjectEntities">
+          <EntitySetMapping Name="m_company">
+            <EntityTypeMapping TypeName="MiniProjectModel.m_company">
+              <MappingFragment StoreEntitySet="m_company">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="is_active" ColumnName="is_active" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="updated_by" ColumnName="updated_by" />
+                <ScalarProperty Name="updated_date" ColumnName="updated_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="m_employee">
+            <EntityTypeMapping TypeName="MiniProjectModel.m_employee">
+              <MappingFragment StoreEntitySet="m_employee">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="employee_number" ColumnName="employee_number" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="m_company_id" ColumnName="m_company_id" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="is_active" ColumnName="is_active" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="updated_by" ColumnName="updated_by" />
+                <ScalarProperty Name="updated_date" ColumnName="updated_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="m_menu">
+            <EntityTypeMapping TypeName="MiniProjectModel.m_menu">
+              <MappingFragment StoreEntitySet="m_menu">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="controller" ColumnName="controller" />
+                <ScalarProperty Name="parent_id" ColumnName="parent_id" />
+                <ScalarProperty Name="is_active" ColumnName="is_active" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="updated_by" ColumnName="updated_by" />
+                <ScalarProperty Name="updated_date" ColumnName="updated_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="m_menu_access">
+            <EntityTypeMapping TypeName="MiniProjectModel.m_menu_access">
+              <MappingFragment StoreEntitySet="m_menu_access">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="m_role_id" ColumnName="m_role_id" />
+                <ScalarProperty Name="m_menu_id" ColumnName="m_menu_id" />
+                <ScalarProperty Name="is_active" ColumnName="is_active" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="updated_by" ColumnName="updated_by" />
+                <ScalarProperty Name="updated_date" ColumnName="updated_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="m_product">
+            <EntityTypeMapping TypeName="MiniProjectModel.m_product">
+              <MappingFragment StoreEntitySet="m_product">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="is_active" ColumnName="is_active" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="updated_by" ColumnName="updated_by" />
+                <ScalarProperty Name="updated_date" ColumnName="updated_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="m_role">
+            <EntityTypeMapping TypeName="MiniProjectModel.m_role">
+              <MappingFragment StoreEntitySet="m_role">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="is_active" ColumnName="is_active" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="updated_by" ColumnName="updated_by" />
+                <ScalarProperty Name="updated_date" ColumnName="updated_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="m_souvenir">
+            <EntityTypeMapping TypeName="MiniProjectModel.m_souvenir">
+              <MappingFragment StoreEntitySet="m_souvenir">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="m_unit_id" ColumnName="m_unit_id" />
+                <ScalarProperty Name="is_active" ColumnName="is_active" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="updated_by" ColumnName="updated_by" />
+                <ScalarProperty Name="updated_date" ColumnName="updated_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="m_unit">
+            <EntityTypeMapping TypeName="MiniProjectModel.m_unit">
+              <MappingFragment StoreEntitySet="m_unit">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="is_active" ColumnName="is_active" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="updated_by" ColumnName="updated_by" />
+                <ScalarProperty Name="updated_date" ColumnName="updated_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="m_user">
+            <EntityTypeMapping TypeName="MiniProjectModel.m_user">
+              <MappingFragment StoreEntitySet="m_user">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="m_role_id" ColumnName="m_role_id" />
+                <ScalarProperty Name="m_employee_id" ColumnName="m_employee_id" />
+                <ScalarProperty Name="is_active" ColumnName="is_active" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="updated_by" ColumnName="updated_by" />
+                <ScalarProperty Name="updated_date" ColumnName="updated_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_design">
+            <EntityTypeMapping TypeName="MiniProjectModel.t_design">
+              <MappingFragment StoreEntitySet="t_design">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="t_event_id" ColumnName="t_event_id" />
+                <ScalarProperty Name="title_header" ColumnName="title_header" />
+                <ScalarProperty Name="request_by" ColumnName="request_by" />
+                <ScalarProperty Name="request_date" ColumnName="request_date" />
+                <ScalarProperty Name="approved_by" ColumnName="approved_by" />
+                <ScalarProperty Name="approved_date" ColumnName="approved_date" />
+                <ScalarProperty Name="assign_to" ColumnName="assign_to" />
+                <ScalarProperty Name="closed_date" ColumnName="closed_date" />
+                <ScalarProperty Name="note" ColumnName="note" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="reject_reason" ColumnName="reject_reason" />
+                <ScalarProperty Name="is_active" ColumnName="is_active" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="updated_by" ColumnName="updated_by" />
+                <ScalarProperty Name="updated_date" ColumnName="updated_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_design_item">
+            <EntityTypeMapping TypeName="MiniProjectModel.t_design_item">
+              <MappingFragment StoreEntitySet="t_design_item">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="t_design_id" ColumnName="t_design_id" />
+                <ScalarProperty Name="m_product_id" ColumnName="m_product_id" />
+                <ScalarProperty Name="title_item" ColumnName="title_item" />
+                <ScalarProperty Name="request_pic" ColumnName="request_pic" />
+                <ScalarProperty Name="start_date" ColumnName="start_date" />
+                <ScalarProperty Name="end_date" ColumnName="end_date" />
+                <ScalarProperty Name="request_due_date" ColumnName="request_due_date" />
+                <ScalarProperty Name="note" ColumnName="note" />
+                <ScalarProperty Name="is_active" ColumnName="is_active" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="updated_by" ColumnName="updated_by" />
+                <ScalarProperty Name="updated_date" ColumnName="updated_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_design_item_file">
+            <EntityTypeMapping TypeName="MiniProjectModel.t_design_item_file">
+              <MappingFragment StoreEntitySet="t_design_item_file">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="t_design_item_id" ColumnName="t_design_item_id" />
+                <ScalarProperty Name="filename" ColumnName="filename" />
+                <ScalarProperty Name="size" ColumnName="size" />
+                <ScalarProperty Name="extension" ColumnName="extension" />
+                <ScalarProperty Name="is_active" ColumnName="is_active" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="updated_by" ColumnName="updated_by" />
+                <ScalarProperty Name="updated_date" ColumnName="updated_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_event">
+            <EntityTypeMapping TypeName="MiniProjectModel.t_event">
+              <MappingFragment StoreEntitySet="t_event">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="event_name" ColumnName="event_name" />
+                <ScalarProperty Name="start_date" ColumnName="start_date" />
+                <ScalarProperty Name="end_date" ColumnName="end_date" />
+                <ScalarProperty Name="place" ColumnName="place" />
+                <ScalarProperty Name="budget" ColumnName="budget" />
+                <ScalarProperty Name="request_by" ColumnName="request_by" />
+                <ScalarProperty Name="request_date" ColumnName="request_date" />
+                <ScalarProperty Name="approved_by" ColumnName="approved_by" />
+                <ScalarProperty Name="approved_date" ColumnName="approved_date" />
+                <ScalarProperty Name="assign_to" ColumnName="assign_to" />
+                <ScalarProperty Name="closed_date" ColumnName="closed_date" />
+                <ScalarProperty Name="note" ColumnName="note" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="reject_reason" ColumnName="reject_reason" />
+                <ScalarProperty Name="is_active" ColumnName="is_active" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="updated_by" ColumnName="updated_by" />
+                <ScalarProperty Name="updated_date" ColumnName="updated_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_promotion">
+            <EntityTypeMapping TypeName="MiniProjectModel.t_promotion">
+              <MappingFragment StoreEntitySet="t_promotion">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="flag_design" ColumnName="flag_design" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="t_event_id" ColumnName="t_event_id" />
+                <ScalarProperty Name="t_design_id" ColumnName="t_design_id" />
+                <ScalarProperty Name="request_by" ColumnName="request_by" />
+                <ScalarProperty Name="request_date" ColumnName="request_date" />
+                <ScalarProperty Name="approved_by" ColumnName="approved_by" />
+                <ScalarProperty Name="approved_date" ColumnName="approved_date" />
+                <ScalarProperty Name="assign_to" ColumnName="assign_to" />
+                <ScalarProperty Name="close_date" ColumnName="close_date" />
+                <ScalarProperty Name="note" ColumnName="note" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="reject_reason" ColumnName="reject_reason" />
+                <ScalarProperty Name="is_active" ColumnName="is_active" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="updated_by" ColumnName="updated_by" />
+                <ScalarProperty Name="updated_date" ColumnName="updated_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_promotion_item">
+            <EntityTypeMapping TypeName="MiniProjectModel.t_promotion_item">
+              <MappingFragment StoreEntitySet="t_promotion_item">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="t_promotion_id" ColumnName="t_promotion_id" />
+                <ScalarProperty Name="t_design_item_id" ColumnName="t_design_item_id" />
+                <ScalarProperty Name="m_product_id" ColumnName="m_product_id" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="request_pic" ColumnName="request_pic" />
+                <ScalarProperty Name="start_date" ColumnName="start_date" />
+                <ScalarProperty Name="end_date" ColumnName="end_date" />
+                <ScalarProperty Name="request_due_date" ColumnName="request_due_date" />
+                <ScalarProperty Name="qty" ColumnName="qty" />
+                <ScalarProperty Name="todo" ColumnName="todo" />
+                <ScalarProperty Name="note" ColumnName="note" />
+                <ScalarProperty Name="is_active" ColumnName="is_active" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="updated_by" ColumnName="updated_by" />
+                <ScalarProperty Name="updated_date" ColumnName="updated_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_promotion_item_file">
+            <EntityTypeMapping TypeName="MiniProjectModel.t_promotion_item_file">
+              <MappingFragment StoreEntitySet="t_promotion_item_file">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="t_promotion_id" ColumnName="t_promotion_id" />
+                <ScalarProperty Name="filename" ColumnName="filename" />
+                <ScalarProperty Name="size" ColumnName="size" />
+                <ScalarProperty Name="extension" ColumnName="extension" />
+                <ScalarProperty Name="start_date" ColumnName="start_date" />
+                <ScalarProperty Name="end_date" ColumnName="end_date" />
+                <ScalarProperty Name="request_due_date" ColumnName="request_due_date" />
+                <ScalarProperty Name="qty" ColumnName="qty" />
+                <ScalarProperty Name="todo" ColumnName="todo" />
+                <ScalarProperty Name="note" ColumnName="note" />
+                <ScalarProperty Name="is_active" ColumnName="is_active" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="updated_by" ColumnName="updated_by" />
+                <ScalarProperty Name="updated_date" ColumnName="updated_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_souvenir">
+            <EntityTypeMapping TypeName="MiniProjectModel.t_souvenir">
+              <MappingFragment StoreEntitySet="t_souvenir">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="t_event_id" ColumnName="t_event_id" />
+                <ScalarProperty Name="request_by" ColumnName="request_by" />
+                <ScalarProperty Name="request_date" ColumnName="request_date" />
+                <ScalarProperty Name="request_due_date" ColumnName="request_due_date" />
+                <ScalarProperty Name="approved_by" ColumnName="approved_by" />
+                <ScalarProperty Name="approved_date" ColumnName="approved_date" />
+                <ScalarProperty Name="received_by" ColumnName="received_by" />
+                <ScalarProperty Name="received_date" ColumnName="received_date" />
+                <ScalarProperty Name="settlement_by" ColumnName="settlement_by" />
+                <ScalarProperty Name="settlement_date" ColumnName="settlement_date" />
+                <ScalarProperty Name="settlement_approved_by" ColumnName="settlement_approved_by" />
+                <ScalarProperty Name="settlement_approved_date" ColumnName="settlement_approved_date" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="note" ColumnName="note" />
+                <ScalarProperty Name="reject_reason" ColumnName="reject_reason" />
+                <ScalarProperty Name="is_active" ColumnName="is_active" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="updated_by" ColumnName="updated_by" />
+                <ScalarProperty Name="updated_date" ColumnName="updated_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_souvenir_item">
+            <EntityTypeMapping TypeName="MiniProjectModel.t_souvenir_item">
+              <MappingFragment StoreEntitySet="t_souvenir_item">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="t_souvenir_id" ColumnName="t_souvenir_id" />
+                <ScalarProperty Name="m_souvenir_id" ColumnName="m_souvenir_id" />
+                <ScalarProperty Name="qty" ColumnName="qty" />
+                <ScalarProperty Name="qty_settlement" ColumnName="qty_settlement" />
+                <ScalarProperty Name="note" ColumnName="note" />
+                <ScalarProperty Name="is_active" ColumnName="is_active" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="updated_by" ColumnName="updated_by" />
+                <ScalarProperty Name="updated_date" ColumnName="updated_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

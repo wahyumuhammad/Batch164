@@ -1,0 +1,39 @@
+﻿@model IEnumerable<MiniProject.ViewModel.MProductVM>
+
+@{ int i = 1;}
+@foreach (var item in Model)
+{
+    <tr>
+        <td>@i</td>
+        <td>
+            @Html.DisplayFor(m => item.code)
+        </td>
+        <td>
+            @Html.DisplayFor(m => item.name)
+        </td>
+        <td>
+            @Html.DisplayFor(m => item.description)
+        </td>
+        <td>
+            @Html.DisplayFor(m => item.created_date)
+        </td>
+        <td>
+            @Html.DisplayFor(m => item.str_created_by)
+        </td>
+        <td>
+
+            <a href="#" onclick="clickbyID('Detail',@item.id)">
+                <i class="fa fa-search"> </i>
+            </a>
+            &nbsp;
+            <a href="#" onclick="clickbyID('Update',@item.id)">
+                <i class="fa fa-edit"> </i>
+            </a>
+            &nbsp;
+            <a href="#" onclick="Delete(@item.id)">
+                <i class="fa fa-trash"> </i>
+            </a>
+        </td>
+    </tr>
+    i++;
+}

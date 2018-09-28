@@ -1,0 +1,24 @@
+﻿@model MiniProject.ViewModel.MMenuVM
+
+@using (Html.BeginForm("Delete", "Menu_", FormMethod.Post, htmlAttributes: new { @id = "form-m_menu" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(x => x.id)
+    @Html.HiddenFor(x => x.code)
+    @Html.HiddenFor(x => x.name)
+    @Html.HiddenFor(x => x.created_by)
+    @Html.HiddenFor(x => x.created_date)
+
+            <button type="submit" class="btn btn-primary btn-sm">Delete</button>
+            <a href="@Url.Action("Index")" class="btn btn-info btn-sm btn-primary">
+                <i class="glyphicon glyphicon-arrow-left"></i>
+                Cancel
+            </a>
+}
+@Scripts.Render("~/bundles/jqueryval")
+
+
+
+
+
+

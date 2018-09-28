@@ -1,0 +1,38 @@
+﻿@model MiniProject.ViewModel.MProductVM
+
+<div class="form-horizontal">
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.code, htmlAttributes: new { @class = "control-label col-md-4" })
+        <div class="col-md-8">
+            @Html.EditorFor(model => model.code, new { htmlAttributes = new { @class = "form-control", @readonly = "" } })
+            @Html.ValidationMessageFor(model => model.code, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label col-md-4" })
+        <div class="col-md-8">
+            @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control", @readonly = "" } })
+            @*<input type="type" name="name" id="name" class="form-control" value="" onfocusout=""/>*@
+            @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "control-label col-md-4" })
+        <div class="col-md-8">
+            @Html.EditorFor(model => model.description, new { htmlAttributes = new { @class = "form-control", @readonly = "" } })
+            @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
+        </div>
+    </div>
+</div>
+
+
+<div class="modal-footer">
+    <div class="col-md-offset-2 col-md-10">
+        <button class="btn btn-warning" data-dismiss="modal" aria-label="Close">Close</button>
+    </div>
+</div>
+@Scripts.Render("~/bundles/jqueryval")

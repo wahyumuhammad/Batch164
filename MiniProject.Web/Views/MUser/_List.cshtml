@@ -1,0 +1,39 @@
+﻿@model IEnumerable<MiniProject.ViewModel.MUserVM>
+@{ int i = 1;}
+@foreach (var item in Model)
+{
+    if (item.isActive == true)
+    {
+        <tr>
+            <td>
+                @i
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.firtsName) @Html.DisplayFor(modelItem => item.lastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nameRole)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.company)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.username)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.createdDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.createdBy)
+            </td>
+
+            <td style="width:80">
+                <button type="button" id="btn-detail" value="@item.id" class="no-border"><i class="fa fa-search"></i></button>
+                <button type="button" id="btn-edit" value="@item.id" class="no-border"><i class="fa fa-pencil"></i></button>
+                <button type="button" id="btn-hapus" value="@item.id" class="no-border"><i class="fa fa-trash"></i></button>
+            </td>
+        </tr>
+        i++;
+    }
+}
+

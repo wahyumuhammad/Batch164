@@ -1,0 +1,285 @@
+﻿@model IEnumerable<MiniProject.ViewModel.mUnitVM>
+@{
+    ViewBag.Title = "Index";
+}
+
+<div id="AlertResponse">
+
+</div>
+
+<h2>Master Unit</h2>
+
+<div class="row">
+    <div class="col-md-11 pull-right">
+        <div class="col-xs-12">
+            <button id="btn-add" class="btn btn-sm btn-primary pull-right" style="width:5em">Add</button>
+        </div>
+    </div>
+    <br /><br />
+          <div class="col-md-12">
+              @using (Html.BeginForm("Search", "mUnit", FormMethod.Post, new { @id = "form-search" }))
+              {
+                  <div class="col-md-3">
+                      @Html.DropDownList("code", (IEnumerable<SelectListItem>)ViewBag.ListCode, "-Select Unit Code-", new { @class = "form-control", @placeholder = "-Select Unit Code-" })
+                  </div>
+                  <div class="col-md-3">
+                      @Html.DropDownList("name", (IEnumerable<SelectListItem>)ViewBag.ListName, "-Select Unit Name-", new { @class = "form-control", @placeholder = "-Select Unit Name-" })
+                  </div>
+                  <div class="col-md-2">
+                      <div class="input-group date">
+                          <div class="input-group-addon">
+                              <i class="fa fa-calendar"></i>
+                          </div>
+                          <input type="text" class="form-control pull-right" id="createdDate" name="createdDate" placeholder="-Created-" />
+
+                      </div>
+                  </div>
+                  <div class="col-md-3">
+                      @Html.TextBox("code", null, new { @class = "form-control", @placeholder = "Created By" })
+                  </div>
+                  <div class="col-xs-1">
+                      <button type="submit" class="btn btn-warning btn-sm pull-right" id="btn-search" style="width:5em;">Search</button>
+                  </div>
+              }
+          </div>
+</div>
+<br />
+<br />
+<table id="list-unit" class="table table-striped">
+    <thead>
+        <tr>
+            <th>No</th>
+            <th>Unit Code</th>
+            <th>Unit Name</th>
+            <th>Created Date</th>
+            <th>Created By</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody id="list-data">
+        @Html.Partial("_List", Model)        
+    </tbody>
+</table>
+
+<div class="modal fade" id="modal-input">
+    <div class="modal-dialog" role="dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        function loadData() {
+            $.ajax({
+                url: '@Url.Action("List")',
+                type: 'get',
+                dataType: 'html',
+                success: function (result) {
+                    $("#list-data").html(result);
+                }
+            });
+        }
+
+        function cekNama() {
+            var ini = $("#modal-input").find("#name").val();
+            $.ajax({
+                url: '@Url.Action("NameCheck")',
+                type: 'get',
+                dataType: 'json',
+                data: {
+                    nama: ini
+                },
+                success: function (x) {
+                    if (x.data == true) {
+                        
+                        swal({
+                            type: x.alerttype,
+                            title: x.alertstrong,
+                            html: x.alertmessage,
+                            footer: ''
+                        });
+                    }
+                }
+            });
+            return false;
+        }
+
+        $("#btn-add").click(function () {
+            $.ajax({
+                url: '@Url.Action("Add")',
+                dataType: 'html',
+                type: 'get',
+                success: function (x) {
+                    $('.modal-title').text("Add Unit");
+                    $('#modal-input').find('.modal-body').html(x);
+                    $('#modal-input').modal('show');
+                }
+            });
+        });
+
+        $("#modal-input").on("submit", "#form-add-unit", function () {
+            var vUrl = $(this).attr('action');
+            var vData = $(this).serialize();
+            $.ajax({
+                url: vUrl,
+                data: vData,
+                dataType: 'JSON',
+                type: 'POST',
+                success: function (x) {
+                    if (x.success == true) {
+                        $("#modal-input").modal('hide');
+                        loadData();
+                        var response = '<div class="alert alert-' + x.alertType + ' alert-dismissible" role="alert"><strong>' + x.alertStrong + '</strong> ' + x.alertMessage + ' </div > ';
+                        $('#AlertResponse').hide().html(response).fadeIn(1500);
+                        $('.alert').delay(5000).fadeOut('normal', function () {
+                            $(this).remove();
+                        });
+                    } else if (x.success == false) {
+                        swal({
+                            type: x.alertType,
+                            title: x.alertStrong,
+                            html: x.alertMessage,
+                            footer: ''
+                        });
+                    }
+                }
+            });
+            return false;
+        });
+
+        
+            
+        $("#modal-input").on("click", "#cancel", function () {
+            $("#modal-input").modal('hide');
+        });
+
+        $("#list-data").on("click", ".btn-details", function () {
+            var vId = $(this).val();
+            $.ajax({
+                url: "@Url.Action("Details")",
+                type: "get",
+                data: { id: vId },
+                dataType: "html",
+                success: function (result) {
+                    $("#modal-input").find(".modal-body").html(result);
+                    $("#modal-input").modal('show');
+                }
+            });
+        });
+
+        $("#list-data").on("click", ".btn-edit", function () {
+            var vId = $(this).val();
+            $.ajax({
+                url: "@Url.Action("Edit")",
+                type: "get",
+                data: { id: vId },
+                dataType: "html",
+                success: function (result) {
+                    $("#modal-input").find(".modal-body").html(result);
+                    $("#modal-input").modal('show');
+                }
+            });
+        });
+
+        $("#modal-input").on("submit", "#form-edit-unit", function () {
+            vUrl = $(this).attr('action');
+            vData = $(this).serialize();
+            $.ajax({
+                url: vUrl,
+                type: 'post',
+                dataType: 'json',
+                data: vData,
+                success: function (x) {
+                    if (x.success == true) {
+                        $("#modal-input").modal('hide');
+                        loadData();
+                        var response = '<div class="alert alert-' + x.alertType + ' alert-dismissible" role="alert"><strong>' + x.alertStrong + '</strong> ' + x.alertMessage + ' </div > ';
+                        $('#AlertResponse').hide().html(response).fadeIn(1500);
+                        $('.alert').delay(5000).fadeOut('normal', function () {
+                            $(this).remove();
+                        });
+                    } else if (x.success == false) {
+                        swal({
+                            type: x.alertType,
+                            title: x.alertStrong,
+                            html: x.alertMessage,
+                            footer: ''
+                        });
+                    }
+                    
+                }
+            });
+            return false;
+        });
+
+        function hapus(id,code) {
+            swal({
+                title: 'Delete data?',
+                type: 'false',
+                showCancelButton: true,
+                confirmButtonColor: '#3c8dbc',
+                cancelButtonColor: '#d58512',
+                confirmButtotnText: 'Delete',
+            }).then((result) => {
+                if (result.value) {
+                    $.ajax({
+                        url: '@Url.Action("HideUnit")',
+                        type: 'get',
+                        data: { id: id },
+                        dataType: 'json',
+                        success: function () {
+                            swal(
+                                'Deleted',
+                                'Your data with code ' + code + ' has been deleted',
+                                'success'
+                            )
+                            loadData();
+                            alr = '<div class="alert alert-info alert-dismissible" role="alert" id="alert"><i style="color:darkblue"><p><strong>Data Deleted!</strong> Data role with code <strong>' + code + '</strong> has been deleted !</p></i></div>'
+                            $('#AlertResponse').append(alr);
+                            $('#AlertResponse').find('#alert').fadeOut(7000, function () {
+                                $('#div-alert').find('#alert').remove();
+                            });
+                        }
+                    });
+                }            
+                    
+            });
+        }
+
+   
+
+        $("#form-search").submit(function () {
+            vUrl = $(this).attr('action');
+            vData = $(this).serialize();
+            $.ajax({
+                url: vUrl,
+                type: 'post',
+                dataType: 'html',
+                data: vData,
+                success: function (x) {
+                    $("#list-data").html(x);
+                }
+            });
+            return false;
+        });
+
+        $("#createdDate").datepicker({
+            
+            autoclose: true
+        });
+
+        $(function () {
+            $('#list-unit').DataTable()
+        })
+    </script>
+    
+    }
+
+

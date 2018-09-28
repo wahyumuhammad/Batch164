@@ -1,0 +1,267 @@
+﻿@model IEnumerable<MiniProject.ViewModel.MProductVM>
+
+@{
+    ViewBag.Title = "Master";
+    ViewBag.ContentHeader = "List Product";
+    ViewBag.Route = "Product";
+    ViewBag.Action = "List Product";
+}
+
+<div id="AlertResponse"></div>
+
+<div class="box box-primary box-solid">
+    <div class="box-header">
+        <h3 class="box-title"></h3>
+        <div class="box-tools">
+
+        </div>
+    </div>
+    <div class="box-body">
+        <p>
+            <div class="row">
+                <div class="col-md-12">
+                    <button class="btn btn-primary btn-sm" id="btn-add" style="width:5em;">Add</button>
+                </div>
+            </div>
+        </p>
+        <table></table>
+
+        @using (Html.BeginForm("SearchData", "MProduct", FormMethod.Post, new { @id = "form-search" }))
+        {
+            <table class="table table-bordered table-striped table-responsive datatable">
+
+                <thead>
+                    <tr id="col-input">
+                        <td></td>
+                        <td>
+                            <input type="text" name="code" id="code" value="" datacolumn="1" class="col1 form-control" placeholder="Souvenir Code" />
+                        </td>
+                        <td>
+                            <input type="text" name="name" id="name" value="" datacolumn="2" class="col2 form-control" placeholder="Souvenir Name" />
+                        </td>
+                        <td>
+                            <input type="text" name="description" id="description" value="" datacolumn="3" class="col3 form-control" placeholder="Description" />
+                        </td>
+                        <td>
+                            <div class="input-group date">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" class="col4 form-control" id="created_date" datacolumn="4" name="created_date" data-provide="datepicker" placeholder="Created">
+                            </div>
+                        </td>
+                        <td>
+                            <input type="text" name="created_by" id="created_by" value="" datacolumn="5" class="col5 form-control" placeholder="Created By" />
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-warning btn-sm pull-right" id="btn-search" style="width:5em;">Search</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>No</th>
+                        <th>
+                            @Html.DisplayNameFor(m => m.code)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(m => m.name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(m => m.description)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(m => m.created_date)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(m => m.str_created_by)
+                        </th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="list-data">
+                    @Html.Partial("_List", Model)
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
+
+<div class="modal fade" id="getModal">
+    <div class="modal-dialog" role="dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h3 class="modal-title"></h3>
+
+            </div>
+            <div class="modal-body">
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+
+
+        //----------------------------------------------------------------
+
+
+        $('#btn-search').click(function () {
+            var data = $("#col-input .form-control").each(function (i) {
+                filterColumn($(this).attr('datacolumn'));
+            });
+        });
+
+        function filterColumn(i) {
+            var data = $(".col" + i).val();
+            $('.datatable').DataTable().column(i).search(data).draw();
+        }
+
+        function LoadData() {
+            $.ajax({
+                url: '@Url.Action("List")',
+                type: 'get',
+                dataType: 'html',
+                success: function (x) {
+                    $("#list-data").html(x);
+                }
+            });
+        }
+
+        function clickbyID(action, id) {
+            $.ajax({
+                url: '@Url.Action("GetByIdPR","Ajax")',
+                type: 'get',
+                dataType: 'json',
+                data: {
+                    id: id
+                },
+                success: function (y) {
+                    var vCode = y.obj.code;
+                    var vName = y.obj.name;
+                    console.log(y);
+                    $.ajax({
+                        url: '/mproduct/' + action + "/" + id,
+                        type: 'get',
+                        dataType: 'html',
+                        success: function (x) {
+                            $("#getModal").modal('show');
+                            $("#getModal").find(".modal-title").html(action + " Souvenir " + vName + " (" + vCode + ")");
+                            $("#getModal").find(".modal-body").html(x);
+                        }
+                    });
+                }
+            });
+        }
+
+        function Delete(id) {
+            $.ajax({
+                url: '@Url.Action("GetByIdPR","Ajax")',
+                type: 'get',
+                dataType: 'json',
+                data: {
+                    id: id
+                },
+                success: function (x) {
+                    Swal({
+                        title: 'Delete ' + x.obj.name + ' (' + x.obj.code + ')?',
+                        text: 'Are you sure?',
+                        type: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Yes, delete it!',
+                        cancelButtonText: 'cancel!',
+                        reverseButtons: true
+                    }).then((result) => {
+                        if (result.value) {
+                            $.ajax({
+                                url: '/MProduct/Delete/' + id,
+                                type: 'get',
+                                dataType: 'json',
+                                success: function (x) {
+                                    if (x.success == true) {
+                                        swal(
+                                            'Deleted!',
+                                            'Your file has been deleted.',
+                                            'success'
+                                        );
+                                        LoadData();
+                                    }
+                                }
+                            });
+                        }
+                        else if (result.dismiss === swal.DismissReason.cancel) {
+                            Swal(
+                              'Cancelled',
+                              'Your imaginary file is safe :)',
+                              'error'
+                            );
+                        }
+                    })
+                }
+            });
+        }
+
+        function CheckNamaPR() {
+            var ini = $('#getModal').find('#name').val();
+            $.ajax({
+                url: '@Url.Action("CheckNamaPR", "Ajax")',
+                type: 'get',
+                dataType: 'json',
+                data: { nama: ini },
+                success: function (x) {
+                    if (x.data == true) {
+                        swal({
+                            type: x.alertType,
+                            title: x.alertStrong,
+                            html: x.alertMessage
+                        });
+                    }
+                }
+            });
+            return false;
+        }
+
+        $("#btn-add").click(function () {
+            $.ajax({
+                url: '@Url.Action("Insert")',
+                type: 'get',
+                dataType: 'html',
+                success: function (x) {
+                    $("#getModal").modal('show');
+                    $("#getModal").find(".modal-title").html("Add Product");
+                    $("#getModal").find(".modal-body").html(x);
+                }
+            });
+        });
+
+        $("#getModal").on("submit", "#form-mproduct", function () {
+            vUrl = $(this).attr('action');
+            vData = $(this).serialize();
+            $.ajax({
+                url: vUrl,
+                type: 'post',
+                dataType: 'json',
+                data: vData,
+                success: function (x) {
+                    if (x.success == true) {
+                        LoadData();
+                        $("#getModal").modal('hide');
+                        var response = '<div class="alert alert-' + x.alertType + ' alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>' + x.alertMessage + '</strong> ' + x.alertStrong + '.</div>';
+                        $('#AlertResponse').hide().html(response).fadeIn(1500);
+                        $('.alert').delay(5000).fadeOut('normal', function () {
+                            $(this).remove();
+                        });
+                    }
+                    else {
+                        swal({
+                            type: x.alertType,
+                            title: x.alertStrong,
+                            html: x.alertMessage
+                        })
+                    }
+                }
+            });
+            return false;
+        });
+    </script>
+}

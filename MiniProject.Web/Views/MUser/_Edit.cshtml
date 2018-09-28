@@ -1,0 +1,73 @@
+﻿@model MiniProject.ViewModel.MUserVM
+
+<div class="box box-solid box-primary">
+    <div class="box-header">
+        <h3 class="box-title">@ViewBag.Title</h3>
+    </div>
+    <div class="box-body with-border">
+        @using (Html.BeginForm("Edit", "MUser", FormMethod.Post, new { @id = "form-input" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(Model => Model.id)
+            <input type="hidden" name="createdBy" value="2" />
+            <div class="form-horizontal">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <label class="control-label">*Role Name</label>
+                        </div>
+                        <div class="col-md-6">
+                            @Html.DropDownListFor(model => model.mRoleId, (IEnumerable<SelectListItem>)ViewBag.ListRole, "- Select Role Name -", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.mRoleId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <label class="control-label">*Employee Name</label>
+                        </div>
+                        <div class="col-md-6">
+                            @Html.HiddenFor(model => model.mEmployeeId)
+                            @Html.TextBoxFor(model => model.fullName, new { @class="form-control", @readonly=""})
+                            @Html.ValidationMessageFor(model => model.mEmployeeId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <label class="control-label">*Username</label>
+                        </div>
+                        <div class="col-md-6">
+                            @Html.EditorFor(model => model.username, new { HtmlAttributes =new {@class="form-control", @placeholder="Type Username", @onfocusout="cekData()"}})
+                            @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <label class="control-label">*Password</label>
+                        </div>
+                        <div class="col-md-6">
+                            @Html.EditorFor(model => model.password, new { HtmlAttributes = new { @class = "form-control", @placeholder = "Type password" } })
+                            @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <label class="control-label">*Re-type Password</label>
+                        </div>
+                        <div class="col-md-6">
+                            @Html.EditorFor(model => model.rePassword, new { HtmlAttributes = new { @class = "form-control", @placeholder = "Re-Type Password" } })
+                            @Html.ValidationMessageFor(model => model.rePassword, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary btn-sm">Save</button>
+                    <button type="button" class="btn btn-warning btn-sm" id="btn-cancel">Cancel</button>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+@Scripts.Render("~/bundles/jqueryval")

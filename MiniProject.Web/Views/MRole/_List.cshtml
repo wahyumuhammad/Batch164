@@ -1,0 +1,26 @@
+﻿@using MiniProject.ViewModel
+@model IEnumerable<MRoleVM>
+
+@{int i = 1;}
+@foreach (var item in Model)
+{
+    <tr>
+        <th>@i</th>
+        <th>@Html.DisplayFor(x => item.code)</th>
+        <th>@Html.DisplayFor(x => item.name)</th>
+        <th>@Html.DisplayFor(x => item.created_date)</th>
+        <th>@Html.DisplayFor(x => item.created_by)</th>
+        <td>
+            <button type="button" class="btn btn-default btn-xs btn-detail" value="@item.id">
+                <i class="glyphicon glyphicon-search"></i>
+            </button>
+            <button type="button" class="btn btn-default btn-xs btn-edit" value="@item.id">
+                <i class="glyphicon glyphicon-pencil"></i>
+            </button>
+            <button type="button" class="btn btn-default btn-xs btn-delete" value="" onclick="actdelete(@item.id,'@item.code')">
+                <i class="glyphicon glyphicon-trash"></i>
+            </button>
+        </td>
+    </tr>
+    i++;
+}

@@ -1,0 +1,22 @@
+﻿@model MiniProject.ViewModel.mUnitVM
+
+<h4 style="text-align:center">Delete data?</h4>
+<div>
+    <hr />
+    @using (Html.BeginForm("Delete", "mUnit", FormMethod.Post, htmlAttributes: new { @id= "form-delete-unit"}))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(x => x.id)
+        @Html.HiddenFor(x => x.code)
+        @Html.HiddenFor(x => x.name)
+        @Html.HiddenFor(x => x.createdBy)
+        @Html.HiddenFor(x=>x.createdDate)
+
+
+    <div class="form-horizontal text-center">
+        <input type="submit" value="Delete" class="btn btn-sm btn-primary" />
+        <button id="cancel" type="button" class="btn btn-warning btn-sm">Cancel</button>
+        @*@Html.ActionLink("Cancel", "Index", "mUnit", new { @class = "btn btn-sm btn-warning" })*@
+    </div>
+    }
+</div>

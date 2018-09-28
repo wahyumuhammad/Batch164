@@ -1,0 +1,35 @@
+﻿@model IEnumerable<MiniProject.VM.MEmployeeVM>
+@{ int i = 1; }
+@foreach (var item in Model)
+{
+    @Html.HiddenFor(modelItem => item.id)
+    if (item.is_active == true)
+    {
+        <tr>
+            <td>@i</td>
+            <td>
+                @Html.DisplayFor(modelItem => item.employee_number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NmCompany)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.created_date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.created_by)
+            </td>
+            <td width="100">
+                <button type="button" class="fa fa-search" id="btn-detail" value="@item.id"></button>
+                <button type="button" class="fa fa-edit" id="btn-edit" value="@item.id"></button>
+                <button type="button" class="fa fa-trash" id="btn-delete" value="@item.id"></button>
+            </td>
+        </tr>
+        i++;
+    }
+
+}
+

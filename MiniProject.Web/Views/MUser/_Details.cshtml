@@ -1,0 +1,73 @@
+﻿@model MiniProject.ViewModel.MUserVM
+
+<div class="box box-solid box-primary">
+    <div class="box-header">
+        <h3 class="box-title">@ViewBag.Title</h3>
+    </div>
+    <div class="box-body with-border">
+        @using (Html.BeginForm("Add", "MUser", FormMethod.Post, new { @id = "form-input" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(Model => Model.id)
+            <input type="hidden" name="createdBy" value="2" />
+            <div class="form-horizontal">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <label class="control-label">*Role Name</label>
+                        </div>
+                        <div class="col-md-6">
+                            @Html.TextBoxFor(model => model.nameRole, new { @class = "form-control" ,@readonly=""})
+                            @Html.ValidationMessageFor(model => model.mRoleId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <label class="control-label">*Employee Name</label>
+                        </div>
+                        <div class="col-md-6">
+                            @Html.TextBoxFor(model => model.firtsName,  new { @class = "form-control" ,@readonly=""})
+                            @Html.ValidationMessageFor(model => model.mEmployeeId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <label class="control-label">*Username</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" name="username" placeholder="Type Username" value="@Model.username" readonly/>
+                            @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <label class="control-label">*Password</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="password" name="password" class="form-control" placeholder="Type Password" value="@Model.password" readonly/>
+                            @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <label class="control-label">*Re-type Password</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="password" name="Repassword" class="form-control" placeholder="Re-Type Password" value="@Model.password" readonly/>
+                            @Html.ValidationMessageFor(model => model.rePassword, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning btn-sm" id="btn-cancel">Close</button>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+@Scripts.Render("~/bundles/jqueryval")
+
+

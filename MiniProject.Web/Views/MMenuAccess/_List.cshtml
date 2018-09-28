@@ -1,0 +1,21 @@
+﻿@model IEnumerable<MiniProject.ViewModel.MRoleVM>
+@{ int i = 1;}
+@foreach (var item in Model)
+{
+    if (item.isActive == true)
+    {
+        <tr>
+            <td>@i</td>
+            <td>@item.code</td>
+            <td>@item.name</td>
+            <td>@item.createdDate</td>
+            <td>@item.createdBy</td>
+            <td width="100">
+                <button type="button" class="btn btn-default btn-sm no-border" value="@item.id" id="btn-details"><i class="fa fa-search"></i></button>
+                <button type="button" class="btn btn-default btn-sm no-border" value="@item.id" id="btn-edit"><i class="fa fa-pencil"></i></button>
+                <button type="button" class="btn btn-default btn-sm no-border" value="@item.id" id="btn-delete"><i class="fa fa-trash-o"></i></button>
+            </td>
+        </tr>
+        i++;
+    }
+}

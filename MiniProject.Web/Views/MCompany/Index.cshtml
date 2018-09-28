@@ -1,0 +1,360 @@
+﻿@model IEnumerable<MiniProject.VM.MCompanyVM>
+<div class="box box-solid box-primary">
+    <div class="box-header">
+        <h4 class="box-title">List Company</h4>
+        
+    </div>
+    <div class="box-body">
+        <ol class="breadcrumb">
+            <li><a href="#"> Home</a></li>
+            <li><a href="#"> Master</a></li>
+            <li class="active">@ViewBag.Title</li>
+        </ol>
+           
+        <table class="table table-condensed table-bordered table-striped" id="example1">
+            <thead id="tb-input">
+                <tr class="no-border">
+                    <td colspan="5" id="AlertResponse"></td>
+                    <td>
+                        <button type="button" class="btn btn-primary" id="btn-add" style="width:5em">Add </button>
+                    </td>
+
+                </tr>
+                @Html.ValidationSummary()
+                <tr id="tr-input">
+                    <td></td>
+                    <td>@Html.DropDownList("code", (IEnumerable<SelectListItem>)ViewBag.ListCompanyCode, "= Select Company Code =", new { @class = "column_filter form-control", @id = "col1_filter", @data = "1" })</td>
+                    <td>@Html.DropDownList("name", (IEnumerable<SelectListItem>)ViewBag.ListCompanyName, "= Select Company Code =", new { @class = "column_filter form-control", @id = "col2_filter", @data = "2" })</td>
+                    <td>
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input type="text" class=" form-control column_filter datepicker" id="col3_filter" data="3" placeholder="Created">
+                        </div>
+                    </td>
+                    <td>@Html.TextBox("created_by", null, new { @class = "form-control column_filter", @placeholder = "Created By", @id = "col4_filter", @data = "4" })</td>
+                    <td>
+                        <button type="button" class="btn btn-warning " id="btn-search" style="width:5em;">Search</button>
+
+                    </td>
+                </tr>
+                <tr>
+                    <th>No</th>
+                    <th>@Html.DisplayNameFor(m => m.code)</th>
+                    <th>@Html.DisplayNameFor(m => m.name)</th>
+                    <th>@Html.DisplayNameFor(m => m.created_date)</th>
+                    <th>@Html.DisplayNameFor(m => m.created_by)</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="list">
+                @Html.Partial("_List", Model)
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="modal-input">
+    <div class="modal-dialog modal-lg" role="dialog">
+        <div class="box box-primary box-solid">
+            <div class="box-header">
+                <h3 class="box-title"></h3>
+            </div>
+
+
+            <div class="modal-body">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+
+
+        function loaddata() {
+            $.ajax({
+                url: '@Url.Action("List","MCompany")',
+                type: "get",
+                dataType: "html",
+                success: function (result) {
+                    $("#list").html(result);
+                }
+            });
+        }
+
+        $("#btn-add").on("click", function () {
+            $.ajax({
+                url: "@Url.Action("Add","MCompany")",
+                type: "get",
+                datatype: "html",
+                success: function (result) {
+                    $("#modal-input").find(".box-title").html("Add Company");
+                    $("#modal-input").find(".modal-body").html(result);
+                    $("#modal-input").modal('show');
+                }
+
+            })
+        });
+
+
+
+        $("#modal-input").on("submit", "#form-company", function () {
+            var vUrl = $(this).attr('action');
+            var vData = $(this).serialize();
+            $.ajax({
+                url: vUrl,
+                data: vData,
+                dataType: 'JSON',
+                method: 'POST',
+                success: function (x) {
+                    if (x.success == true) {
+                        swal({
+                            type: x.alertType,
+                            title: x.alertStrong,
+                            html: x.alertMessage,
+                        });
+
+                    }
+                    else if (x.success == false) {
+                        $("#modal-input").modal('hide');
+                        loaddata();
+                        var response = '<div class="alert alert-' + x.alertType + ' alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>' + x.alertStrong + '</strong> ' + x.alertMessage + '.</div>';
+                        $('#AlertResponse').hide().html(response).fadeIn(1500);
+                        $('.alert').delay(5000).fadeOut('normal', function () {
+                            $(this).remove();
+                        });
+                    }
+
+                }
+            });
+            return false;
+        });
+
+        $("#list").on("click", "#btn-detail", function () {
+            var Id = $(this).val();
+
+            $.ajax({
+                url: "@Url.Action("GetById","Ajax")",
+                type: "get",
+                datatype: "json",
+                data: { id: Id },
+                success: function (x) {
+                    var vName = x.obj.name;
+                    var vCode = x.obj.code;
+                    $.ajax({
+                        url: "@Url.Action("Detail","MCompany")",
+                        type: "get",
+                        datatype: "html",
+                        data: { id: Id },
+                        success: function (result) {
+                            $("#modal-input").find(".box-title").html("Edit Company-" + vName + "(" + vCode + ")");
+                            $("#modal-input").find(".modal-body").html(result);
+                            $("#modal-input").modal('show');
+                        }
+                    });
+                }
+            })
+
+        });
+
+        $("#list").on("click", "#btn-delete", function () {
+            var Id = $(this).val()
+            $.ajax({
+                url: "@Url.Action("GetById","Ajax")",
+                type: "get",
+                datatype: "json",
+                data: { id: Id },
+                success: function (x) {
+                    Swal({
+                        title: 'Delete ' + x.obj.name + ' (' + x.obj.code + ')?',
+                        text: 'Are you sure?',
+                        type: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Yes, delete it!',
+                        cancelButtonText: 'cancel!',
+                        reverseButtons: true
+                    }).then((result) => {
+                        if (result.value) {
+                            $.ajax({
+                                url: '/MCompany/Delete/' + Id,
+                                type: 'get',
+                                dataType: 'json',
+                                success: function (x) {
+                                    if (x.success == false) {
+                                        swal(
+                                            'Deleted!',
+                                            'Company has been deleted.',
+                                            'success'
+                                        );
+                                        var response = '<div class="alert alert-' + x.alertType + ' alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>' + x.alertStrong + '</strong> ' + x.alertMessage + '.</div>';
+                                        $('#AlertResponse').hide().html(response).fadeIn(1500);
+                                        $('.alert').delay(5000).fadeOut('normal', function () {
+                                            $(this).remove();
+                                        });
+                                    }
+
+                                    else if (x.success == true) {
+                                        swal(
+                                            'Error!',
+                                            'Company still has employees',
+                                            'error'
+                                        );
+                                        var response = '<div class="alert alert-' + x.alertType + ' alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>' + x.alertStrong + '</strong> ' + x.alertMessage + '.</div>';
+                                        $('#AlertResponse').hide().html(response).fadeIn(1500);
+                                        $('.alert').delay(5000).fadeOut('normal', function () {
+                                            $(this).remove();
+                                        });
+                                    }
+                                    loaddata();
+
+                                }
+                            });
+                        }
+                        else if (result.dismiss === swal.DismissReason.cancel) {
+                            Swal(
+                              'Cancelled',
+                              'Your imaginary file is safe :)',
+                              'warning'
+                            );
+                        }
+                    })
+                }
+            });
+        });
+
+        //function tombolupdate(x, y) {
+        //    var aduh = $("#modal-input").find("#form-company").serialize();
+        //    Swal({
+        //        title: aduh.name,
+        //        text: 'Are you sure?',
+        //        type: 'warning',
+        //        showCancelButton: true,
+        //        confirmButtonText: 'Yes, delete it!',
+        //        cancelButtonText: 'cancel!',
+        //        reverseButtons: true
+        //    }).then((result) => {
+        //        if (result.value) {
+        //            $.ajax({
+        //                url: '/MCompany/Edit/',
+        //                type: 'post',
+        //                dataType: 'json',
+        //                data: aduh,
+        //                success: function (x) {
+        //                    if (x.success == false) {
+        //                        swal({
+        //                            type: x.alertType,
+        //                            title: x.alertStrong,
+        //                            html: x.alertMessage,
+        //                        });
+        //                        $("#modal-input").modal('hide');
+        //                    }
+        //                    else {
+        //                        swal({
+        //                            type: x.alertType,
+        //                            title: x.alertStrong,
+        //                            html: x.alertMessage,
+        //                        });
+                                
+        //                    }
+        //                    loaddata();
+
+        //                }
+        //            });
+        //        }
+        //    })
+        //}
+
+        function check() {
+            var ini = $("#modal-input").find("#name").val();
+            $.ajax({
+                url: "@Url.Action("CheckNama")",
+                type: "get",
+                datatype: "json",
+                data: { nama: ini },
+                success: function (x) {
+                    if (x.data == true) {
+                        swal({
+                            type: x.alertType,
+                            title: x.alertStrong,
+                            html: x.alertMessage,
+                        });
+
+                    };
+
+                }
+
+            });
+            return false;
+        }
+
+        $("#list").on("click", "#btn-edit", function () {
+            var Id = $(this).val();
+
+            $.ajax({
+                url: "@Url.Action("GetById","Ajax")",
+                type: "get",
+                datatype: "json",
+                data: { id: Id },
+                success: function (x) {
+                    var vName = x.obj.name;
+                    var vCode = x.obj.code;
+                    $.ajax({
+                        url: "@Url.Action("edit","MCompany")",
+                        type: "get",
+                        datatype: "html",
+                        data: { id: Id },
+                        success: function (result) {
+                            $("#modal-input").find(".box-title").html("Edit Company-" + vName + "(" + vCode + ")");
+                            $("#modal-input").find(".modal-body").html(result);
+                            $("#modal-input").modal('show');
+                        }
+                    });
+                }
+            })
+
+        });
+
+        $(document).ready(function () {
+            $('#example1').DataTable({
+                'sDom': 'tip',
+                ordering: false
+            });
+            $("#tb-input").find("#tr-input").find(".column_filter").on("keyup click", function () {
+                filterColumn($(this).attr("data-column"));
+            });
+
+        });
+
+        function filterColumn(i) {
+            $("#example1").DataTable().column(i).search(
+                $("#col" + i + "_filter").val()
+                ).draw();
+        }
+
+        $("#btn-search").click(function () {
+            $("#tb-input .form-control").each(function (i) {
+                filterColumn($(this).attr('data'));
+            })
+
+        })
+
+
+        $("#tb-input").find("#tr-input").find(".select2").select2();
+        $("#tb-input").find("#tr-input").find(".datepicker").datepicker({
+
+            format: "dd-mm-yyyy",
+            autoclose: true
+        });
+
+
+
+
+    </script>
+}
+@Scripts.Render("~/bundles/jqueryval")

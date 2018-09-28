@@ -1,0 +1,315 @@
+﻿@model IEnumerable<MiniProject.VM.MEmployeeVM>
+
+
+
+<div class="box box-solid box-primary">
+    <div class="box-header">
+    </div>
+    <div class="box-body">
+        <ol class="breadcrumb">
+            <li><a href="#"> Home</a></li>
+            <li><a href="#"> Master</a></li>
+            <li class="active">@ViewBag.Title</li>
+        </ol>
+            <div id="AlertResponse">
+
+            </div>
+        
+        <table class="table table-bordered table-responsive table-striped table-condensed" id="example1">
+            <thead id="tb-input">
+                <tr class="no-border">
+                    <td colspan="6" id="AlertResponse"></td>
+                    <td>
+                        <button type="button" class="btn btn-primary" id="btn-add" style="width:5em">Add </button>
+                    </td>
+
+                </tr>
+                @Html.ValidationSummary()
+                <tr id="tr-input">
+                    <td></td>
+                    <td>@Html.TextBox("employee_number", null, new { @class = "form-control column_filter", @placeholder = "Employee Id Number", @id = "col1_filter", @data = "1" })</td>
+                    <td>@Html.TextBox("FullName", null, new { @class = "form-control column_filter", @placeholder = "Employee Name", @id = "col2_filter", @data = "2" })</td>
+                    <td>@Html.DropDownList("NmCompany", (IEnumerable<SelectListItem>)ViewBag.ListCompanyName, "= Select Company Code =", new { @class = "column_filter form-control", @id = "col3_filter", @data = "3" })</td>
+                    <td >
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input type="text" class=" form-control column_filter datepicker" id="col4_filter" data="4" placeholder="Created">
+                        </div>
+                    </td>
+                    <td>@Html.TextBox("created_by", null, new { @class = "form-control column_filter", @placeholder = "Created By", @id = "col5_filter", @data = "5" })</td>
+                    <td>
+                        <button type="button" class="btn btn-warning" id="btn-search" style="width:5em;">Search</button>
+                    </td>
+                </tr>
+                <tr>
+                    <th>No</th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.employee_number)
+                    </th>
+                    <th>Employee Name</th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.m_company_id)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.created_date)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.created_by)
+                    </th>
+                    <th> Action</th>
+                </tr>
+            </thead>
+            <tbody id="list">
+                @Html.Partial("_List", Model)
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+
+
+
+<div class="modal fade" id="modal-input">
+    <div class="modal-dialog modal-lg" role="dialog">
+        <div class="box box-primary box-solid">
+            <div class="box-header">
+                <h3 class="box-title"></h3>
+            </div>
+
+
+            <div class="modal-body">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section Scripts{
+    <script>
+
+        function loaddata() {
+            $.ajax({
+                url: '@Url.Action("List","MEmployee")',
+                type: "get",
+                dataType: "html",
+                success: function (result) {
+                    $("#list").html(result);
+                }
+            });
+        }
+
+        $("#btn-add").on("click", function () {
+            $.ajax({
+                url: "@Url.Action("Add","MEmployee")",
+                type: "get",
+                datatype: "html",
+                success: function (result) {
+                    $("#modal-input").find(".box-title").html("Add Employee");
+                    $("#modal-input").find(".modal-body").html(result);
+                    $("#modal-input").modal('show');
+                }
+
+            })
+        });
+
+
+       $("#list").on("click", "#btn-detail", function () {
+            var Id = $(this).val();
+
+            $.ajax({
+                url:"@Url.Action("GetById2","Ajax")",
+                type:"get",
+                datatype:"json",
+                data: { id: Id },
+                success: function (x) {
+                    var vName = x.obj.FullName;
+                    var vCode = x.obj.employee_number;
+                    $.ajax({
+                        url: "@Url.Action("Detail","MEmployee")",
+                        type: "get",
+                        datatype: "html",
+                        data: { id: Id },
+                        success: function (result) {
+                            $("#modal-input").find(".box-title").html("View Employee-" + vName + "(" +vCode + ")");
+                            $("#modal-input").find(".modal-body").html(result);
+                            $("#modal-input").modal('show');
+                        }
+                    });
+                }
+            })
+
+        });
+
+
+
+        $("#list").on("click", "#btn-edit", function () {
+            var Id = $(this).val();
+
+            $.ajax({
+                url:"@Url.Action("GetById2","Ajax")",
+                type:"get",
+                datatype:"json",
+                data: { id: Id },
+                success: function (x) {
+                    var vName = x.obj.FullName;
+                    var vCode = x.obj.employee_number;
+                    $.ajax({
+                        url: "@Url.Action("Edit","MEmployee")",
+                        type: "get",
+                        datatype: "html",
+                        data: { id: Id },
+                        success: function (result) {
+                            $("#modal-input").find(".box-title").html("Edit Employee-" + vName + "(" +vCode + ")");
+                            $("#modal-input").find(".modal-body").html(result);
+                            $("#modal-input").modal('show');
+                        }
+                    });
+                }
+            })
+
+        });
+
+        $("#modal-input").on("submit", "#form-employee", function () {
+            var vUrl = $(this).attr('action');
+            var vData = $(this).serialize();
+            $.ajax({
+                url: vUrl,
+                data: vData,
+                dataType: 'JSON',
+                method: 'POST',
+                success: function (x) {
+                    if (x.success == true) {
+                        swal({
+                            type: x.alertType,
+                            title: x.alertStrong,
+                            html: x.alertMessage,
+                        });
+
+                    }
+                    else if (x.success == false) {
+                        $("#modal-input").modal('hide');
+                        loaddata();
+
+                        var response = '<div class="alert alert-' + x.alertType + ' alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>' + x.alertStrong + '</strong> ' + x.alertMessage + '.</div>';
+                        $('#AlertResponse').hide().html(response).fadeIn(1500);
+                        $('.alert').delay(5000).fadeOut('normal', function () {
+                            $(this).remove();
+                        });
+                    }
+
+                }
+            });
+            return false;
+        });
+
+        $(document).ready(function () {
+            $('#example1').DataTable({
+                'sDom': 'tip',
+                ordering: false
+            });
+            $("#tb-input").find("#tr-input").find(".column_filter").on("keyup click", function () {
+                filterColumn($(this).attr("data-column"));
+            });
+
+        });
+
+        function filterColumn(i) {
+            $("#example1").DataTable().column(i).search(
+                $("#col" + i + "_filter").val()
+                ).draw();
+        }
+
+        $("#btn-search").click(function () {
+            $("#tb-input .form-control").each(function (i) {
+                filterColumn($(this).attr('data'));
+            })
+
+        })
+
+
+        $("#tb-input").find("#tr-input").find(".select2").select2();
+        $("#tb-input").find("#tr-input").find(".datepicker").datepicker({
+
+            format: "dd/mm/yyyy",
+            autoclose: true
+        });
+
+        $("#list").on("click", "#btn-delete", function () {
+            var Id = $(this).val()
+            $.ajax({
+                url: "@Url.Action("GetById2","Ajax")",
+                type: "get",
+                datatype: "json",
+                data: { id: Id },
+                success: function (x) {
+                    Swal({
+                        title: 'Delete ' + x.obj.Fullname + ' (' + x.obj.employee_number + ')?',
+                        text: 'Are you sure?',
+                        type: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Yes, delete it!',
+                        cancelButtonText: 'cancel!',
+                        reverseButtons: true
+                    }).then((result) => {
+                        if (result.value) {
+                            $.ajax({
+                                url: '/MEmployee/Delete/' + Id,
+                                type: 'get',
+                                dataType: 'json',
+                                success: function (x) {
+                                    if (x.success == true) {
+                                        swal(
+                                            'Deleted!',
+                                            'Employee has been deleted.',
+                                            'success'
+                                        );
+                                    }
+
+                                    loaddata();
+
+                                }
+                            });
+                        }
+                        else if (result.dismiss === swal.DismissReason.cancel) {
+                            Swal(
+                              'Cancelled',
+                              'Your imaginary file is safe :)',
+                              'warning'
+                            );
+                        }
+                    })
+                }
+            });
+        });
+
+        function check() {
+            var ini = $("#modal-input").find("#employee_number").val();
+            $.ajax({
+                url: "@Url.Action("CheckNama")",
+                type: "get",
+                datatype: "json",
+                data: { nama: ini },
+                success: function (x) {
+                    if (x.data == true) {
+                        swal({
+                            type: x.alertType,
+                            title: x.alertStrong,
+                            html: x.alertMessage,
+                        });
+
+                    };
+
+                }
+
+            });
+            return false;
+        }
+
+    </script>
+}

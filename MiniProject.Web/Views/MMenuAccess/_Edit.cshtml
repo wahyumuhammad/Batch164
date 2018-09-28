@@ -1,0 +1,39 @@
+﻿@model MiniProject.ViewModel.MMenuAccessVM
+
+<div class="box box-primary box-solid">
+    <div class="box-header">
+        <h2 class="box-title">@ViewBag.Title</h2>
+    </div>
+    <div class="box-body">
+        @using (Html.BeginForm("Edit", "mmenuaccess", FormMethod.Post, new { @id = "form-input" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(Model => Model.role.id)
+            <input type="hidden" value="2" name="createdBy" />
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-md-4 control-label">*Role Code</label>
+                    <div class="col-md-8">
+                        @Html.DropDownListFor(Model => Model.role.id, (IEnumerable<SelectListItem>)ViewBag.ListRole, "-Select Role Name-", new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-4">*Menu Access</label>
+                    <div class="col-md-8">
+                        @{ var i = 1;}
+                        @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.ListMenu)
+                        {
+                            <input type="checkbox" value="@item.Value" name="listMenuId" id="@i"/>@item.Text <br />
+                            i++;
+                        }
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary btn-sm">Edit</button>
+                    <button type="button" class="btn btn-warning btn-sm" id="btn-cancel">Cancel</button>
+                </div>
+            </div>
+        }
+    </div>
+</div>
