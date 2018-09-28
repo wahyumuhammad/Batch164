@@ -1,0 +1,40 @@
+foreach (var item in model.listMenuId)
+                {
+                    var data = db.m_menu_access.Where(x => x.m_menu_id == item && x.is_active == true).FirstOrDefault();
+                    if (data != null)
+                    {
+                        data.updated_by = 2;
+                        data.updated_date = DateTime.Now;
+
+                    }
+                    else
+                    {
+                        data = db.m_menu_access.Where(x => x.m_menu_id == item && x.is_active == false).FirstOrDefault();
+                        if (data != null)
+                        {
+                            data.updated_by = 2;
+                            data.updated_date = DateTime.Now;
+                            data.is_active = true;
+                        }
+                        else
+                        {
+                            var dataNew = new m_menu_access();
+                            dataNew.m_menu_id = item;
+                            dataNew.m_role_id = model.role.id;
+                            dataNew.is_active = true;
+                            dataNew.created_by = 2;
+                            dataNew.created_date = DateTime.Now;
+                            db.m_menu_access.Add(dataNew);
+                        }
+                    }
+                    try
+                    {
+                        db.SaveChanges();
+                        result = true;
+                    }
+                    catch (Exception)
+                    {
+
+                        throw;
+                    }
+                }
